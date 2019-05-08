@@ -9,9 +9,9 @@ function init() {
 
     // camera setup
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
-    camera.position.set(0, 30, 20);
-    camera.rotateX(- 1.3 * Math.PI / 4);
-    camera.rotateZ(Math.PI);
+    camera.position.set(0, 10, -30);
+    /* camera.rotateX(- 1.3 * Math.PI / 4);
+    camera.rotateZ(Math.PI); */
 
     // Add game board
     var platformGeo = new THREE.PlaneGeometry(50, 50, 50);
@@ -24,7 +24,8 @@ function init() {
     // add a block to represent the character
     player = new Player();
     player.addToScene();
-    scene.add( player );
+    camera.lookAt(player.Mesh.position);
+    player.Mesh.add(camera);
 
     // add lights
     const LIGHT_INTENSITY = 2,
@@ -41,6 +42,10 @@ function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x0, 1);
+
+    // axis helper to see whats going on
+    /* var axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper); */
 
     document.body.appendChild(renderer.domElement);
 

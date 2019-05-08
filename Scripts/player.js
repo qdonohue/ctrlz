@@ -3,16 +3,18 @@
 class Player {
 
     constructor() {
-        this.moveSpeed = 1;
+        this.moveSpeed = 10;
         this.angleRotated = 0;
-        this.ROTATION_SPEED = Math.PI / 3.0;
+        this.ROTATION_SPEED = Math.PI / 1.5;
         this.init();
     }
 
     init() {
-        this.geometry = new THREE.BoxGeometry( 1, 1, 5 );
+        this.geometry = new THREE.BoxGeometry( 1, 3, 1);
         this.material = new THREE.MeshLambertMaterial( { color: 0x00b21d } );
         this.Mesh = new THREE.Mesh(this.geometry, this.material);
+        this.Mesh.lookAt(0, -1, 0);
+        this.Mesh.position.add(new THREE.Vector3(0, 0, 3));
         this.Mesh.castShadow = true;
         this.Mesh.recieveShadow = true;
     }
