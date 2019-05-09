@@ -1,5 +1,4 @@
-
-#startScreen {
+#build_main{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,15 +20,24 @@
     text-transform: none;
 }
 
-#title {
-    font-size: 60px;
+#gridboard {
+    height: 80vh;
+    width: 80vh;
+    display: grid;
+    grid-template-columns: repeat(10, 8vh);
+    grid-template-rows: repeat(10, 8vh);
+    background-color: darkgrey;
 }
 
+.unselected-grid-item:hover {
+    background-color: green;
+}
 
-.fancyButton {
-    color: rgb(255, 255, 255); font-size: 26px; line-height: 26px; padding: 6px; border-radius: 10px; font-family: "Courier New", Courier, monospace; font-weight: 700; text-decoration: none solid rgb(68, 68, 68); font-style: normal; font-variant: normal; text-transform: none; background-image: radial-gradient(at center center, rgb(117, 0, 0) 0%, rgb(203, 70, 82) 50%, rgb(117, 59, 60) 100%); box-shadow: rgba(0, 0, 0, 0.56) 8px 8px 15px 4px; border: 2px solid rgb(0, 0, 0); display: inline-block;}
-.fancyButton:hover {
-background: #750000; }
-.fancyButton:active {
-background: #753B3C; }
+.selected-grid-item {
+    background-color: #545331;
+    border: 2px solid #000000;
+}
 
+.selected-grid-item:hover {
+    background-color: red;
+}

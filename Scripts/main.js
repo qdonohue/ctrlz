@@ -3,13 +3,19 @@
 
 var scene, camera, clock, renderer, frameTime;
 var player;
+var blockLocations;
+
+var BLOCK_COUNT = 100;
+
+blockLocations = Array(BLOCK_COUNT).fill(false); // initialize it all to false
 
 //$('#gameCanvas').append(renderer.domElement);
 
 $("#startButton").click(function () {
     $("#startScreen").hide();
-    mainGame()
-})
+    buildBoard();
+    //mainGame()
+});
 
 function mainGame() {
     
