@@ -6,24 +6,32 @@ var player;
 
 //$('#gameCanvas').append(renderer.domElement);
 
+$("#startButton").click(function () {
+    $("#startScreen").hide();
+    mainGame()
+})
 
-function animate() {
-    requestAnimationFrame(animate);
-    Input.resolveInput(player);
-    renderer.render(scene, camera);
-    frameTime = clock.getDelta();
+function mainGame() {
+    
+    function animate() {
+        requestAnimationFrame(animate);
+        Input.resolveInput(player);
+        renderer.render(scene, camera);
+        frameTime = clock.getDelta();
+    }
+
+    init();
+
+    // HANDLE WINDOW RESIZING
+    window.addEventListener("resize", onWindowResize, false);
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+
+    animate();
+
 }
-
-init();
-
-// HANDLE WINDOW RESIZING
-window.addEventListener("resize", onWindowResize, false);
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-
-animate();
