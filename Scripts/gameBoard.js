@@ -27,6 +27,10 @@ function init() {
     camera.lookAt(player.Mesh.position);
     player.Mesh.add(camera);
 
+    // add a box to the scene
+    cube = new Box();
+    cube.addToScene();
+
     // add lights
     const LIGHT_INTENSITY = 2,
         LIGHT_COLOR = 0xffffff;
