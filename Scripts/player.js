@@ -3,7 +3,7 @@
 class Player {
 
     constructor() {
-        this.moveSpeed = 10;
+        this.moveSpeed = 30;
         this.angleRotated = 0;
         this.ROTATION_SPEED = Math.PI / 1.5;
         this.init();
@@ -13,6 +13,10 @@ class Player {
         this.geometry = new THREE.BoxGeometry( 1, 3, 1);
         this.material = new THREE.MeshLambertMaterial( { color: 0x00b21d } );
         this.Mesh = new THREE.Mesh(this.geometry, this.material);
+        var edgeGeo = new THREE.EdgesGeometry(this.geometry);
+        var edgeMat = new THREE.LineBasicMaterial({ color: 0x020202, linewidth: 2 })
+        var edges = new THREE.LineSegments(edgeGeo, edgeMat);
+        this.Mesh.add(edges);
         this.Mesh.lookAt(0, -1, 0);
         this.Mesh.position.add(new THREE.Vector3(0, 0, 3));
         this.Mesh.castShadow = true;
@@ -45,15 +49,17 @@ class Player {
 
     // move player forward
     moveForward() {
-        var newPosition = this.Mesh.position;
+        var newPosition = this.Mesh.position.clone();
         newPosition.add(this.facingVector.normalize().multiplyScalar(this.moveSpeed * frameTime));
+        if (illegalMove(newPosition)) return;
         this.Mesh.position.set(newPosition.x, newPosition.y, newPosition.z);
     }
 
-    // backwars
+    // backwards
     moveBackward() {
-        var newPosition = this.Mesh.position;
+        var newPosition = this.Mesh.position.clone();
         newPosition.add(this.facingVector.normalize().multiplyScalar(-this.moveSpeed * frameTime));
+        if (illegalMove(newPosition)) return;
         this.Mesh.position.set(newPosition.x, newPosition.y, newPosition.z);
     }
 
@@ -68,3 +74,4 @@ class Player {
     }
     
 }
+

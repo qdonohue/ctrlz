@@ -5,7 +5,7 @@ function init() {
     Input.keyBoardInit();
     
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf2f2f2);
+    scene.background = new THREE.Color(0xA7A3A3);
 
     // camera setup
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
@@ -14,8 +14,8 @@ function init() {
     camera.rotateZ(Math.PI); */
 
     // Add game board
-    var platformGeo = new THREE.PlaneGeometry(50, 50, 50);
-    var platformMaterial = new THREE.MeshBasicMaterial( {color: 0x636363});
+    var platformGeo = new THREE.PlaneGeometry(100, 100, 100);
+    var platformMaterial = new THREE.MeshBasicMaterial( {color: 0x750000});
     var platform = new THREE.Mesh(platformGeo, platformMaterial);
     platform.castShadow = false;
     platform.recieveShadow = true;
@@ -30,6 +30,8 @@ function init() {
     // add a box to the scene
     cube = new Box();
     cube.addToScene();
+    cube.place(45,45);
+    blocks.push(cube);
 
     // add lights
     const LIGHT_INTENSITY = 2,
@@ -40,7 +42,12 @@ function init() {
     var light = new THREE.PointLight(LIGHT_COLOR, LIGHT_INTENSITY);
     light.castShadow = true;
     scene.add(light);
-    light.position.set(0, 20, 10);
+    light.position.set(0, 40, 20);
+
+    var light = new THREE.PointLight(LIGHT_COLOR, LIGHT_INTENSITY);
+    light.castShadow = true;
+    scene.add(light);
+    light.position.set(0, -40, 20);
 
     // get renderer going
     renderer = new THREE.WebGLRenderer();
