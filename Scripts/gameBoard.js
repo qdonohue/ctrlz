@@ -26,7 +26,7 @@ function init() {
     var spawn = new THREE.Mesh(spawnGeo, spawnMaterial);
     spawn.castShadow = false;
     spawn.recieveShadow = true;
-    spawn.position.set((BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2, 0, 0);
+    spawn.position.set(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2, 0);
     scene.add(spawn);
 
     player = new Player();
@@ -35,13 +35,7 @@ function init() {
     player.Mesh.add(camera);
 
     // Move player to spawn
-    player.place((BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2, 0);
-
-    // add a box to the scene
-    /* cube = new Box();
-    cube.addToScene();
-    cube.place(45,45);
-    blocks.push(cube); */
+    player.place(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2);
 
     // add lights
     const LIGHT_INTENSITY = 2,

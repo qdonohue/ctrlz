@@ -11,18 +11,6 @@ function illegalMove(position) { // if we collide
 }
 
 
-// get X, Y coordinates of a box
-function getPosition(number) {
-    var x, y;
-
-    y = Math.floor(number / BLOCK_PER_SIDE);
-    x = number % BLOCK_PER_SIDE;
-
-    // We've converted from (0 --> BLOCK_COUNT) into (0 --> BLOCK_PER_SIDE, 0 --> BLOCK_PER_SIDE)
-
-
-}
-
 // Helper function that will merge meshes
 // taken from: https://stackoverflow.com/questions/27217388/use-multiple-materials-for-merged-geometries-in-three-js
 function _mergeMeshes(meshes, toBufferGeometry) {

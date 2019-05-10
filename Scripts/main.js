@@ -16,6 +16,7 @@ blockLocations = Array(BLOCK_COUNT).fill(false); // initialize it all to false
 var DEBUG = false;
 
 if (DEBUG) {
+    blockLocations[99] = true;
     $("#startScreen").hide();
     mainGame();
 }
