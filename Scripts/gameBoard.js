@@ -9,7 +9,7 @@ function init() {
 
     // camera setup
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
-    camera.position.set(0, 20, -40);
+    camera.position.set(0, 15, -40);
 
     // Add game board
     var platformGeo = new THREE.PlaneGeometry(BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH);
@@ -18,7 +18,6 @@ function init() {
     platform.castShadow = false;
     platform.recieveShadow = true;
     scene.add(platform);
-    console.log(platform.position);
 
     // add a spawn platform
     var spawnGeo = new THREE.PlaneGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);

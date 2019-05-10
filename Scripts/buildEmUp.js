@@ -8,10 +8,10 @@ function getPosition(number) {
     x = number % BLOCK_PER_SIDE;
 
     // We've converted from (0 --> BLOCK_COUNT) into (0 --> BLOCK_PER_SIDE, 0 --> BLOCK_PER_SIDE)
-    xBase = BLOCK_SIZE / 2 - (BOARD_SIDE_LENGTH / 2);
+    xBase = -BLOCK_SIZE / 2 + (BOARD_SIDE_LENGTH / 2);
     yBase = BLOCK_SIZE / 2 - (BOARD_SIDE_LENGTH / 2);
 
-    var xFin = xBase + 10 * x;
+    var xFin = xBase - 10 * x;
     var yFin = yBase + 10 * y;
     
     var position = {};
