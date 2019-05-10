@@ -9,10 +9,11 @@ var blocks = [];
 var BLOCK_COUNT = 100;
 var BLOCK_PER_SIDE = 10;
 var BOARD_SIDE_LENGTH = 100;
+var BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
 
 blockLocations = Array(BLOCK_COUNT).fill(false); // initialize it all to false
 
-var DEBUG = true;
+var DEBUG = false;
 
 if (DEBUG) {
     $("#startScreen").hide();

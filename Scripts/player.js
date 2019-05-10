@@ -24,27 +24,22 @@ class Player {
         var meshMaterial = new THREE.MeshBasicMaterial({color: 0x7777ff});
 
         // legs
+        var legsMat = new THREE.MeshLambertMaterial( {color: 0x002a6d});
         var legsGeo = new THREE.BoxGeometry( 2, 3, 3);
-        var legsMesh = new THREE.Mesh( legsGeo, meshMaterial ) ;
+        var legsMesh = new THREE.Mesh( legsGeo, legsMat ) ;
         // body
+        var bodyMat = new THREE.MeshLambertMaterial( {color: 0x16630b});
         var bodyGeo = new THREE.BoxGeometry(4, 3, 3);
-        var bodyMesh = new THREE.Mesh( bodyGeo, meshMaterial ) ;
+        var bodyMesh = new THREE.Mesh( bodyGeo, bodyMat ) ;
         bodyMesh.position.y = 3;
         //head
+        var headMat = new THREE.MeshLambertMaterial( {color: 0x000000});
         var headGeo = new THREE.SphereGeometry(1);
-        var headMesh = new THREE.Mesh( headGeo, meshMaterial ) ; 
-        headMesh.position.y = 6;
+        var headMesh = new THREE.Mesh( headGeo, headMat ) ; 
+        headMesh.position.y = 5.5;
         
-        // merged legs body and head
-        var geometry = new THREE.Geometry();
-        legsMesh.updateMatrix();
-        geometry.merge(legsMesh.geometry, legsMesh.matrix);
-        bodyMesh.updateMatrix();
-        geometry.merge(bodyMesh.geometry, bodyMesh.matrix);
-        headMesh.updateMatrix();
-        geometry.merge(headMesh.geometry, headMesh.matrix);
-
-        this.Mesh = new THREE.Mesh( geometry, meshMaterial ) ;
+        // use helper function found online to merge the meshes together and keep colors
+        this.Mesh = _mergeMeshes([legsMesh, bodyMesh, headMesh], false);
         this.Mesh.lookAt(0, -1, 0);
         this.Mesh.position.add(new THREE.Vector3(0, 0, 1.5));
         this.Mesh.castShadow = true;
@@ -75,6 +70,14 @@ class Player {
 		return direction.applyMatrix4(matrix).normalize();
     }
 
+    place(x, y) {
+        this.Mesh.position.set(x, y, this.Mesh.position.z);
+    }
+
+    face(x, y) {
+        this.Mesh.lookAt(x, y, 0);
+    }
+
     // move player forward
     moveForward() {
         var newPosition = this.Mesh.position.clone();
@@ -99,6 +102,11 @@ class Player {
     rotateLeft() {
         this.Mesh.rotateY(this.ROTATION_SPEED * frameTime);
         this.angleRotated -= this.ROTATION_SPEED * frameTime;
+    }
+
+    // Helper function to check stuff
+    debug() {
+        console.log(this.Mesh.position);
     }
     
 }

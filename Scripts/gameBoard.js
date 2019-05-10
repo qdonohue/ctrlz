@@ -9,9 +9,7 @@ function init() {
 
     // camera setup
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
-    camera.position.set(0, 10, -30);
-    /* camera.rotateX(- 1.3 * Math.PI / 4);
-    camera.rotateZ(Math.PI); */
+    camera.position.set(0, 20, -40);
 
     // Add game board
     var platformGeo = new THREE.PlaneGeometry(BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH);
@@ -20,18 +18,30 @@ function init() {
     platform.castShadow = false;
     platform.recieveShadow = true;
     scene.add(platform);
+    console.log(platform.position);
 
-    // add a block to represent the character
+    // add a spawn platform
+    var spawnGeo = new THREE.PlaneGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+    var spawnMaterial = new THREE.MeshLambertMaterial( {color: 0xffe900});
+    var spawn = new THREE.Mesh(spawnGeo, spawnMaterial);
+    spawn.castShadow = false;
+    spawn.recieveShadow = true;
+    spawn.position.set((BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2, 0, 0);
+    scene.add(spawn);
+
     player = new Player();
     player.addToScene();
     camera.lookAt(player.Mesh.position);
     player.Mesh.add(camera);
 
+    // Move player to spawn
+    player.place((BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2, 0);
+
     // add a box to the scene
-    cube = new Box();
+    /* cube = new Box();
     cube.addToScene();
     cube.place(45,45);
-    blocks.push(cube);
+    blocks.push(cube); */
 
     // add lights
     const LIGHT_INTENSITY = 2,
@@ -48,6 +58,9 @@ function init() {
     light.castShadow = true;
     scene.add(light);
     light.position.set(0, -40, 20);
+
+    // Place our blocks
+    build();
 
     // get renderer going
     renderer = new THREE.WebGLRenderer();

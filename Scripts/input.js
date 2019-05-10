@@ -45,6 +45,10 @@ class Input {
             player.moveBackward();
         }
 
+        if (Input.keyState[Input.keys.debug]) {
+            player.debug();
+        }
+
     }
 }
 
@@ -53,7 +57,8 @@ Input.keys = {
     "forward": 87,
     "backwards": 83,
     "left": 65,
-    "right": 68
+    "right": 68,
+    "debug": 16 // this is shift
 };
 
 Input.CAMERA_MOVE_SPEED = .1;

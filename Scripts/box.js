@@ -6,7 +6,7 @@ class Box {
     }
 
     init() {
-        var sideLength = BLOCK_PER_SIDE / BOARD_SIDE_LENGTH;
+        var sideLength = BLOCK_SIZE;
         this.geometry = new THREE.BoxGeometry( sideLength, sideLength, sideLength);
         this.geometry.computeBoundingBox();
         this.material = new THREE.MeshLambertMaterial( {color: 0x545331} );
