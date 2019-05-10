@@ -14,7 +14,7 @@ function init() {
     camera.rotateZ(Math.PI); */
 
     // Add game board
-    var platformGeo = new THREE.PlaneGeometry(100, 100, 100);
+    var platformGeo = new THREE.PlaneGeometry(BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH);
     var platformMaterial = new THREE.MeshBasicMaterial( {color: 0x750000});
     var platform = new THREE.Mesh(platformGeo, platformMaterial);
     platform.castShadow = false;

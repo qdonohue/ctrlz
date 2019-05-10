@@ -18,7 +18,7 @@ class Player {
         var edges = new THREE.LineSegments(edgeGeo, edgeMat);
         this.Mesh.add(edges);
         this.Mesh.lookAt(0, -1, 0);
-        this.Mesh.position.add(new THREE.Vector3(0, 0, 3));
+        this.Mesh.position.add(new THREE.Vector3(0, 0, 1.5));
         this.Mesh.castShadow = true;
         this.Mesh.recieveShadow = true;
     }

@@ -6,11 +6,12 @@ class Box {
     }
 
     init() {
-        this.geometry = new THREE.BoxGeometry( 10, 10, 10);
+        var sideLength = BLOCK_PER_SIDE / BOARD_SIDE_LENGTH;
+        this.geometry = new THREE.BoxGeometry( sideLength, sideLength, sideLength);
         this.geometry.computeBoundingBox();
         this.material = new THREE.MeshLambertMaterial( {color: 0x545331} );
         this.cube = new THREE.Mesh( this.geometry, this.material );
-        this.cube.position.add(new THREE.Vector3(0, 0, 5));
+        this.cube.position.add(new THREE.Vector3(0, 0, sideLength / 2));
         this.cube.castShadow = true;
         this.cube.recieveShadow = true;
     }

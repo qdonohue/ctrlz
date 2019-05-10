@@ -7,6 +7,8 @@ var blockLocations;
 var blocks = [];
 
 var BLOCK_COUNT = 100;
+var BLOCK_PER_SIDE = 10;
+var BOARD_SIDE_LENGTH = 100;
 
 blockLocations = Array(BLOCK_COUNT).fill(false); // initialize it all to false
 

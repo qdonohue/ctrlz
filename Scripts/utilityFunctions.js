@@ -9,3 +9,15 @@ function illegalMove(position) { // if we collide
 
     return false;
 }
+
+
+// get X, Y coordinates of a box
+function getPosition(number) {
+    var x, y;
+
+    y = Math.floor(number / BLOCK_PER_SIDE);
+    x = number % BLOCK_PER_SIDE;
+
+    // We've converted from (0 --> BLOCK_COUNT) into (0 --> BLOCK_PER_SIDE, 0 --> BLOCK_PER_SIDE)
+
+}
