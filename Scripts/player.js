@@ -9,14 +9,42 @@ class Player {
         this.init();
     }
 
+    // init() {
+    //     this.geometry = new THREE.BoxGeometry( 1, 3, 1);
+    //     this.material = new THREE.MeshLambertMaterial( { color: 0x00b21d } );
+    //     this.Mesh = new THREE.Mesh(this.geometry, this.material);
+    //     this.Mesh.lookAt(0, -1, 0);
+    //     this.Mesh.position.add(new THREE.Vector3(0, 0, 3));
+    //     this.Mesh.castShadow = true;
+    //     this.Mesh.recieveShadow = true;
+    // }
+
     init() {
-        this.geometry = new THREE.BoxGeometry( 1, 3, 1);
-        this.material = new THREE.MeshLambertMaterial( { color: 0x00b21d } );
-        this.Mesh = new THREE.Mesh(this.geometry, this.material);
-        var edgeGeo = new THREE.EdgesGeometry(this.geometry);
-        var edgeMat = new THREE.LineBasicMaterial({ color: 0x020202, linewidth: 2 })
-        var edges = new THREE.LineSegments(edgeGeo, edgeMat);
-        this.Mesh.add(edges);
+        
+        var meshMaterial = new THREE.MeshBasicMaterial({color: 0x7777ff});
+
+        // legs
+        var legsGeo = new THREE.BoxGeometry( 2, 3, 3);
+        var legsMesh = new THREE.Mesh( legsGeo, meshMaterial ) ;
+        // body
+        var bodyGeo = new THREE.BoxGeometry(4, 3, 3);
+        var bodyMesh = new THREE.Mesh( bodyGeo, meshMaterial ) ;
+        bodyMesh.position.y = 3;
+        //head
+        var headGeo = new THREE.SphereGeometry(1);
+        var headMesh = new THREE.Mesh( headGeo, meshMaterial ) ; 
+        headMesh.position.y = 6;
+        
+        // merged legs body and head
+        var geometry = new THREE.Geometry();
+        legsMesh.updateMatrix();
+        geometry.merge(legsMesh.geometry, legsMesh.matrix);
+        bodyMesh.updateMatrix();
+        geometry.merge(bodyMesh.geometry, bodyMesh.matrix);
+        headMesh.updateMatrix();
+        geometry.merge(headMesh.geometry, headMesh.matrix);
+
+        this.Mesh = new THREE.Mesh( geometry, meshMaterial ) ;
         this.Mesh.lookAt(0, -1, 0);
         this.Mesh.position.add(new THREE.Vector3(0, 0, 1.5));
         this.Mesh.castShadow = true;
