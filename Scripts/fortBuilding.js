@@ -38,6 +38,25 @@ function buildBoard() {
 
     topLevel.appendChild(gridParent); // add our grid in
 
+    // Parent element for input, spawn block
+    var bottomParent = document.createElement('div');
+    bottomParent.className = "spawnParent";
+    topLevel.appendChild(bottomParent);
+
+    // add in a spawn block location for clarity
+    var spawn = document.createElement('div');
+    spawn.className = "spawnBlock";
+    var text = document.createElement('div');
+    text.innerHTML = "Spawn";
+    spawn.appendChild(text);
+    bottomParent.appendChild(spawn);
+
+    // spacing
+    var spacing = document.createElement('div');
+    spacing.className = "spacing";
+    bottomParent.appendChild(spacing);
+
+    // Continue button
     var onwards = document.createElement('INPUT');
     onwards.type = 'button';
     onwards.value='Continue';
@@ -49,7 +68,7 @@ function buildBoard() {
         mainGame();
     };
 
-    topLevel.appendChild(onwards);
+    bottomParent.appendChild(onwards);
 
     document.body.appendChild(topLevel);
 }
