@@ -10,6 +10,17 @@ function illegalMove(position) { // if we collide
     return false;
 }
 
+function removeFromBlocks(box) {
+    var goalId = box.getID();
+
+    for (var i = 0; i < BLOCK_COUNT; i++) {
+        var cur = blocks[i];
+        if (cur.getID() == goalId) {
+            blocks.splice(i, 1); // get rid of the offending block
+            return;
+        }
+    }
+}
 
 // Helper function that will merge meshes
 // taken from: https://stackoverflow.com/questions/27217388/use-multiple-materials-for-merged-geometries-in-three-js

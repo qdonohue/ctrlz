@@ -27,7 +27,7 @@ function build() {
     for (var i = 0; i < BLOCK_COUNT; i++) {
         if (blockLocations[i]) {
             var position = getPosition(i);
-            var block = new Box();
+            var block = new Box(i);
             block.addToScene();
             block.place(position.x, position.y);
             blocks.push(block);
