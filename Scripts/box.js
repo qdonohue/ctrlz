@@ -26,6 +26,16 @@ class Box {
         scene.add(this.cube);
     }
 
+    show() {
+        this.addToScene();
+        blocks.push(this);
+    }
+
+    remove() {
+        scene.remove(this.cube);
+        removeFromBlocks(this);
+    }
+
     place(x, y) {
         this.cube.position.set(x, y, this.cube.position.z);
     }

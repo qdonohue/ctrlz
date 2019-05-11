@@ -4,7 +4,6 @@
 var scene, camera, clock, renderer, frameTime;
 var player;
 var temporal;
-var blockLocations;
 var blocks = [];
 
 var BLOCK_COUNT = 100;
@@ -18,15 +17,13 @@ var TIME_BETWEEN_POSITIONS = 1000;
 var BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
 var FOOTSTEP_COLOR = 0x015359;
 
-blockLocations = Array(BLOCK_COUNT).fill(false); // initialize it all to false
+var blockOrder = Array(BLOCK_COUNT).fill(NaN);
+var blockLocations = Array(BLOCK_COUNT).fill(NaN);
+var highestBlockIndex = 0;
 
-var DEBUG = true;
+var DEBUG = false;
 
 if (DEBUG) {
-    for (var j = 50; j < 80; j += 3) {
-        blockLocations[j] = true;
-    }
-
     $("#startScreen").hide();
     mainGame();
 }

@@ -1,4 +1,20 @@
+function updateBlockOrder(index) {
+    for (var j = index; j < BLOCK_COUNT - 1; j++) {
+        blockOrder[j] = blockOrder[j + 1];
+        blockLocations[blockOrder[j]] = j; // so blockLocations points correctly
+    }
 
+    updateBlockLabels();
+}
+
+function updateBlockLabels() {
+    var selectedItems = $(".selected-grid-item");
+    selectedItems.each(function (){
+        var curID = $(this).attr('id');
+        var newNumber = blockLocations[curID];
+        $(this).html(newNumber);
+    });
+}
 
 function buildBoard() {
     // What's gonna hold all our shit
@@ -24,13 +40,21 @@ function buildBoard() {
         gridObject.onclick = function() {
             id = parseInt(this.id); // kinda annoying but whatever
 
-            if (blockLocations[id]) { // it has already been selected
+            if (this.className === "selected-grid-item") { // it has already been selected
                 this.className = "unselected-grid-item";
+                this.innerHTML = "";
+                blockOrder[blockLocations[id]] = NaN;
+                updateBlockOrder(blockLocations[id]);
+                blockLocations[id] = NaN;
+                highestBlockIndex--;
             } else {
                 this.className = "selected-grid-item";
+                var orderNumber = highestBlockIndex;
+                highestBlockIndex++;
+                blockLocations[id] = orderNumber;
+                blockOrder[orderNumber] = id;
+                this.innerHTML = orderNumber;
             }
-            // flip block locations
-            blockLocations[id] = !blockLocations[id];
         }
         
         gridParent.appendChild(gridObject);
