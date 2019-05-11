@@ -47,6 +47,7 @@ class Input {
 
         if (Input.keyState[Input.keys.debug]) {
             player.goBack(5);
+            player.debug();
         }
 
     }

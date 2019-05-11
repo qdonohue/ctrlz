@@ -7,12 +7,15 @@ var temporal;
 var blocks = [];
 
 var BLOCK_COUNT = 100;
+var PLACABLE_COUNT = 65;
+var FREE_BLOCKS_AT_START = 15;
 var BLOCK_PER_SIDE = 10;
 var BOARD_SIDE_LENGTH = 100;
 var BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
 
 var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
 var TIME_BETWEEN_POSITIONS = 1000;
+var TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
 
 var BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
 var FOOTSTEP_COLOR = 0x015359;
@@ -21,9 +24,12 @@ var blockOrder = Array(BLOCK_COUNT).fill(NaN);
 var blockLocations = Array(BLOCK_COUNT).fill(NaN);
 var highestBlockIndex = 0;
 
-var DEBUG = false;
+var DEBUG = true;
 
 if (DEBUG) {
+    for (var i = 0; i < BLOCK_COUNT; i++) {
+        blockOrder[i] = i;
+    }
     $("#startScreen").hide();
     mainGame();
 }

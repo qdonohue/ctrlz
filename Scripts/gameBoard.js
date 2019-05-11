@@ -38,6 +38,10 @@ function init() {
     // Move player to spawn
     player.place(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2);
 
+    // give player their blocks
+    var playerBlockArray = buildPlayerArray(blockOrder);
+    player.assignBlocks(playerBlockArray);
+
     // add lights
     const LIGHT_INTENSITY = 2,
         LIGHT_COLOR = 0xffffff;
@@ -53,9 +57,6 @@ function init() {
     light.castShadow = true;
     scene.add(light);
     light.position.set(0, -40, 20);
-
-    // Place our blocks
-    build();
 
     // get renderer going
     renderer = new THREE.WebGLRenderer();

@@ -3,20 +3,46 @@
 class TemporalManagement {
 
     constructor() {
-        this.lastTracked = NaN;
+        this.lastTrackedP = NaN;
+        this.lastTrackedB = NaN;
+    }
+
+    checkPosition() {
+        var curTime = new Date();
+
+        if (this.lastTrackedP !== NaN) {
+            var ellapsedP = curTime - this.lastTrackedP;
+
+            if (ellapsedP < TIME_BETWEEN_POSITIONS) {
+                return;
+            }
+        
+            player.updatePosition();
+            this.lastTrackedP = curTime;
+            return;
+        }
+        this.lastTrackedP = curTime;
+    }
+
+    checkBlockPlacement() {
+        var curTime = new Date();
+
+        if (this.lastTrackedB !== NaN) {
+            var ellapsedB = curTime - this.lastTrackedB;
+
+            if (ellapsedB < TIME_BETWEEN_BLOCK_PLACEMENT) {
+                return;
+            }
+        
+            player.placeNextBlock();
+            this.lastTrackedB = curTime;
+            return;
+        }
+        this.lastTrackedB = curTime;
     }
 
     update() {
-        var curTime = new Date();
-
-        if (this.lastTracked !== NaN) {
-            var ellapsed = curTime - this.lastTracked;
-
-            if (ellapsed < TIME_BETWEEN_POSITIONS) return; // don't update positions if time between is too small
-        }
-
-        this.lastTracked = curTime;
-
-        player.updatePosition();
+        //this.checkBlockPlacement();
+        this.checkPosition();
     }
 }

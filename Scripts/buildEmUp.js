@@ -34,3 +34,17 @@ function build() {
         }
     }
 }
+
+function buildPlayerArray(given) {
+    var finished = [];
+    for (var i = 0; i < BLOCK_COUNT; i++) {
+        if (given[i] === NaN) return finished;
+        var blockID = given[i];
+        var curBlock = new Box(blockID);
+        var curPosition = getPosition(blockID);
+        curBlock.place(curPosition.x, curPosition.y);
+        finished.push(curBlock);
+    }
+
+    return finished;
+}

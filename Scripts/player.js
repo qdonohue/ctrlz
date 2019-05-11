@@ -8,6 +8,9 @@ class Player {
         this.ROTATION_SPEED = Math.PI / 1.5;
         this.positions = [];
         this.lastReversed = NaN;
+        this.blocks;
+        this.blockIndex;
+        this.survivalTime = 0;
         this.init();
     }
 
@@ -46,16 +49,50 @@ class Player {
         this.Mesh.recieveShadow = true;
     }
 
+    checkBlocksVsTime() {
+        var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
+        var diff = indexShouldBe - this.blockIndex;
+
+        if (diff > 0) {
+            console.log("we're behind");
+            for (var i = 0; i < diff; i++) {
+                this.placeNextBlock();
+            }
+        } else if (diff < 0) {
+            console.log("we're ahead");
+            for (var i = 0; i < -diff; i++) {
+                this.removeBlock();
+            }
+        }
+    }
+
+    removeBlock() {
+        this.blockIndex--;
+        this.blocks[this.blockIndex].remove();
+    }
+
+    assignBlocks(blocks) {
+        this.blocks = blocks;
+        this.blockIndex = 0;
+
+        for (var i = 0; i < FREE_BLOCKS_AT_START; i++) {
+            this.blocks[i].show();
+            this.blockIndex++;
+        }
+    }
+
     updatePosition() {
+        this.survivalTime += TIME_BETWEEN_POSITIONS;
         var xLoc = this.Mesh.position.x;
         var yLoc = this.Mesh.position.y;
 
         var footStep = new FootStep(xLoc, yLoc);
 
         this.positions.push(footStep);
+        this.checkBlocksVsTime();
     }
 
-    goBack(time) {
+    goBack(numPositions) {
         var curTime = new Date();
         if (this.lastReversed !== NaN) { // it registers key press too fast
             var ellapsed = curTime - this.lastReversed;
@@ -65,11 +102,14 @@ class Player {
         }
         this.lastReversed = curTime;
 
-        var undoAmount = time;
+        var undoAmount = numPositions;
 
         if (this.positions.length === 0) {
             return;
         }
+
+        var change = numPositions * TIME_BETWEEN_POSITIONS;
+        this.survivalTime -= change;
 
         if (undoAmount > this.positions.length) {
             undoAmount = this.positions.length;
@@ -85,10 +125,22 @@ class Player {
         var newY = footFall.y;
 
         this.place(newX, newY);
+        
+        this.checkBlocksVsTime();
     }
 
     addToScene() {
         scene.add(this.Mesh);
+    }
+
+    placeNextBlock() {
+        while (this.blocks[this.blockIndex].destroyed()) {
+            if (this.blockIndex == PLACABLE_COUNT) return;
+            this.blockIndex++;
+        }
+
+        this.blocks[this.blockIndex].show();
+        this.blockIndex++;
     }
 
     /**
@@ -147,7 +199,9 @@ class Player {
 
     // Helper function to check stuff
     debug() {
-        console.log(this.Mesh.position);
+        var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
+        var diff = indexShouldBe - this.blockIndex;
+        console.log(diff);
     }
     
 }

@@ -5,6 +5,7 @@ class Box {
         this.health = 10;
         this.init();
         this.lastCollision = NaN;
+        this.hasBeenDestroyed = false;
     }
 
     init() {
@@ -26,7 +27,12 @@ class Box {
         scene.add(this.cube);
     }
 
+    destroyed() {
+        return this.hasBeenDestroyed;
+    }
+
     show() {
+        if (this.hasBeenDestroyed) return;
         this.addToScene();
         blocks.push(this);
     }
@@ -53,6 +59,7 @@ class Box {
         }
 
         if (this.health === 1) {
+            this.hasBeenDestroyed = true;
             removeFromBlocks(this); // take out of collision calculations
             scene.remove(this.cube); // take out of scene
         }
