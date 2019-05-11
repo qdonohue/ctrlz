@@ -6,6 +6,8 @@ class Player {
         this.moveSpeed = 30;
         this.angleRotated = 0;
         this.ROTATION_SPEED = Math.PI / 1.5;
+        this.positions = [];
+        this.lastReversed = NaN;
         this.init();
     }
 
@@ -21,8 +23,6 @@ class Player {
 
     init() {
         
-        var meshMaterial = new THREE.MeshBasicMaterial({color: 0x7777ff});
-
         // legs
         var legsMat = new THREE.MeshLambertMaterial( {color: 0x002a6d});
         var legsGeo = new THREE.BoxGeometry( 2, 3, 3);
@@ -44,6 +44,47 @@ class Player {
         this.Mesh.position.add(new THREE.Vector3(0, 0, 1.5));
         this.Mesh.castShadow = true;
         this.Mesh.recieveShadow = true;
+    }
+
+    updatePosition() {
+        var xLoc = this.Mesh.position.x;
+        var yLoc = this.Mesh.position.y;
+
+        var footStep = new FootStep(xLoc, yLoc);
+
+        this.positions.push(footStep);
+    }
+
+    goBack(time) {
+        var curTime = new Date();
+        if (this.lastReversed !== NaN) { // it registers key press too fast
+            var ellapsed = curTime - this.lastReversed;
+            if (ellapsed < TIME_BETWEEN_DAMAGE) {
+                return;
+            }
+        }
+        this.lastReversed = curTime;
+
+        var undoAmount = time;
+
+        if (this.positions.length === 0) {
+            return;
+        }
+
+        if (undoAmount > this.positions.length) {
+            undoAmount = this.positions.length;
+        } 
+
+        var footFall;
+        for (var i = 0; i < undoAmount; i++) {
+            footFall = this.positions.pop();
+            footFall.remove();
+        }
+
+        var newX = footFall.x;
+        var newY = footFall.y;
+
+        this.place(newX, newY);
     }
 
     addToScene() {

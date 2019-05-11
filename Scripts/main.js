@@ -3,6 +3,7 @@
 
 var scene, camera, clock, renderer, frameTime;
 var player;
+var temporal;
 var blockLocations;
 var blocks = [];
 
@@ -11,9 +12,11 @@ var BLOCK_PER_SIDE = 10;
 var BOARD_SIDE_LENGTH = 100;
 var BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
 
-var TIME_BETWEEN_DAMAGE = 1000; // 
+var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
+var TIME_BETWEEN_POSITIONS = 1000;
 
 var BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
+var FOOTSTEP_COLOR = 0x015359;
 
 blockLocations = Array(BLOCK_COUNT).fill(false); // initialize it all to false
 
@@ -41,6 +44,7 @@ function mainGame() {
     
     function animate() {
         requestAnimationFrame(animate);
+        temporal.update();
         Input.resolveInput(player);
         renderer.render(scene, camera);
         frameTime = clock.getDelta();

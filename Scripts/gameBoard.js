@@ -2,6 +2,8 @@ function init() {
     clock = new THREE.Clock();
     frameTime = 0;
 
+    temporal = new TemporalManagement();
+    
     Input.keyBoardInit();
     
     scene = new THREE.Scene();
