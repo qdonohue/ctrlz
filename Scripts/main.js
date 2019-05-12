@@ -2,9 +2,9 @@
 // Enhanced by using tricks from: https://github.com/juanferrer/red-palito/blob/master/js/main.js (such as getting window resizing)
 
 var scene, camera, clock, renderer, frameTime;
-var player;
+var player, player2;
 var temporal;
-var blocks = [];
+var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
 
 var BLOCK_COUNT = 100;
@@ -13,6 +13,8 @@ var FREE_BLOCKS_AT_START = 15;
 var BLOCK_PER_SIDE = 10;
 var BOARD_SIDE_LENGTH = 100;
 var BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
+
+var PLAYER_COLLISION_DAMAGE = 1;
 
 var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
 var TIME_BETWEEN_POSITIONS = 1000;
@@ -25,7 +27,7 @@ var blockOrder = Array(BLOCK_COUNT).fill(NaN);
 var blockLocations = Array(BLOCK_COUNT).fill(NaN);
 var highestBlockIndex = 0;
 
-var DEBUG = true;
+var DEBUG = false;
 
 if (DEBUG) {
     for (var i = 0; i < BLOCK_COUNT; i++) {

@@ -175,7 +175,7 @@ class Player {
     moveForward() {
         var newPosition = this.Mesh.position.clone();
         newPosition.add(this.facingVector.normalize().multiplyScalar(this.moveSpeed * frameTime));
-        if (illegalMove(newPosition)) return;
+        if (illegalMove(newPosition, PLAYER_COLLISION_DAMAGE)) return;
         this.Mesh.position.set(newPosition.x, newPosition.y, newPosition.z);
     }
 
@@ -183,7 +183,7 @@ class Player {
     moveBackward() {
         var newPosition = this.Mesh.position.clone();
         newPosition.add(this.facingVector.normalize().multiplyScalar(-this.moveSpeed * frameTime));
-        if (illegalMove(newPosition)) return;
+        if (illegalMove(newPosition, PLAYER_COLLISION_DAMAGE)) return;
         this.Mesh.position.set(newPosition.x, newPosition.y, newPosition.z);
     }
 
