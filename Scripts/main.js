@@ -5,6 +5,7 @@ var scene, camera, clock, renderer, frameTime;
 var player;
 var temporal;
 var blocks = [];
+var bullets = [];
 
 var BLOCK_COUNT = 100;
 var PLACABLE_COUNT = 65;
@@ -43,11 +44,30 @@ $("#startButton").click(function () {
     buildBoard();
 });
 
+/** Decrease bullet lifetime and dispose of bullets */
+function updateBullet() {
+  //console.log(bullets.length);
+  for (i=0; i < bullets.length; i++) {
+    // check for collision
+    /*if (bullets[i].position.distanceTo(player.position) < 3.0) {
+      bullets[i].reset();
+      bullets.pop(bullets[i]);
+      continue;
+    }
+    */
+    // movement
+    bullets[i].position.add(bullets[i].direction.multiplyScalar(bullets[i].speed));
+
+  }
+}
+
+
 function mainGame() {
-    
+
     function animate() {
         requestAnimationFrame(animate);
         temporal.update();
+        updateBullet();
         Input.resolveInput(player);
         renderer.render(scene, camera);
         frameTime = clock.getDelta();
