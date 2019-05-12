@@ -25,7 +25,7 @@ class Cannon {
         var sideLength = BLOCK_SIZE;
         this.geometry = new THREE.BoxGeometry( sideLength, sideLength, sideLength);
         this.geometry.computeBoundingBox();
-        this.material = new THREE.MeshLambertMaterial( {color: BLOCK_COLOR[0]} );
+        this.material = new THREE.MeshLambertMaterial( {color: CANNON_COLOR[0]} );
         this.cube = new THREE.Mesh( this.geometry, this.material );
         this.cube.position.add(new THREE.Vector3(0, 0, sideLength / 2));
         this.cube.castShadow = true;
@@ -86,7 +86,7 @@ class Cannon {
         var curColor = 10 - this.health;
 
         // change color
-        var newColor = BLOCK_COLOR[curColor];
+        var newColor = CANNON_COLOR[curColor];
         
         this.cube.material.color.setHex(newColor);
     }
