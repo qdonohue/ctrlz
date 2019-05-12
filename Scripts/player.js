@@ -25,7 +25,7 @@ class Player {
     // }
 
     init() {
-        
+
         // legs
         var legsMat = new THREE.MeshLambertMaterial( {color: 0x002a6d});
         var legsGeo = new THREE.BoxGeometry( 2, 3, 3);
@@ -38,9 +38,9 @@ class Player {
         //head
         var headMat = new THREE.MeshLambertMaterial( {color: 0x000000});
         var headGeo = new THREE.SphereGeometry(1);
-        var headMesh = new THREE.Mesh( headGeo, headMat ) ; 
+        var headMesh = new THREE.Mesh( headGeo, headMat ) ;
         headMesh.position.y = 5.5;
-        
+
         // use helper function found online to merge the meshes together and keep colors
         this.Mesh = _mergeMeshes([legsMesh, bodyMesh, headMesh], false);
         this.Mesh.lookAt(0, -1, 0);
@@ -113,7 +113,7 @@ class Player {
 
         if (undoAmount > this.positions.length) {
             undoAmount = this.positions.length;
-        } 
+        }
 
         var footFall;
         for (var i = 0; i < undoAmount; i++) {
@@ -125,7 +125,7 @@ class Player {
         var newY = footFall.y;
 
         this.place(newX, newY);
-        
+
         this.checkBlocksVsTime();
     }
 
@@ -197,12 +197,18 @@ class Player {
         this.angleRotated -= this.ROTATION_SPEED * frameTime;
     }
 
+    shoot() {
+        var bullet = new Bullet();
+        var acc = 1.0; // 100%?
+        bullet.spawn(this.position, this.facingVector, acc);
+        bullets.push(bullet);
+    }
+
     // Helper function to check stuff
     debug() {
         var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
         var diff = indexShouldBe - this.blockIndex;
         console.log(diff);
     }
-    
-}
 
+}

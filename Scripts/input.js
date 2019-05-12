@@ -44,6 +44,11 @@ class Input {
             // handle player go back
             player.moveBackward();
         }
+        // shoot (space)
+        if (Input.keyState[Input.keys.shoot]) {
+            // fire bullet from player
+            player.shoot();
+        }
 
         if (Input.keyState[Input.keys.debug]) {
             player.goBack(5);
@@ -59,7 +64,8 @@ Input.keys = {
     "backwards": 83,
     "left": 65,
     "right": 68,
-    "debug": 16 // this is shift
+    "debug": 16, // this is shift
+    "shoot": 32 // this is space
 };
 
 Input.CAMERA_MOVE_SPEED = .1;
