@@ -32,6 +32,7 @@ const TIME_BETWEEN_POSITIONS = 1000;
 const TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
 const TIME_BETWEEN_SHOTS = 250;
 
+const BACKGROUND_COLOR = 0xA7A3A3;
 const BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
 const FOOTSTEP_COLOR = 0x015359;
 const TURRET_COLOR = [0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee];
@@ -44,7 +45,41 @@ var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
 var p2BlockOrder = Array(BLOCK_COUNT).fill(NaN);
 var p2BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
 
-var DEBUG = false;
+// HORIZONTAL
+var p1View = {
+    camera: undefined,
+    left: 0,
+    bottom: .5,
+    width: 1.0,
+    height: 1.0
+};
+
+var p2View = {
+    camera: undefined,
+    left: 0,
+    bottom: 0,
+    width: 1,
+    height: .5
+};
+
+// VERTICAL
+/* var p1View = {
+    camera: undefined,
+    left: 0,
+    bottom: 0,
+    width: .5,
+    height: 1.0
+};
+
+var p2View = {
+    camera: undefined,
+    left: .5,
+    bottom: 0,
+    width: 1,
+    height: 1.0
+}; */
+
+var DEBUG = true;
 
 if (DEBUG) {
     for (var i = 0; i < BLOCK_COUNT; i++) {
@@ -71,6 +106,11 @@ function updateBullets() {
     bullets[i].update();
 }
 
+function updateViewPort(view) {
+    updateView(view.camera, view.left, view.bottom, view.width, view.height);
+    renderer.render(scene, view.camera);
+}
+
 
 function mainGame() {
 
@@ -79,7 +119,9 @@ function mainGame() {
         temporal.update();
         updateBullets();
         Input.resolveInput(players);
-        renderer.render(scene, camera);
+        updateViewPort(p1View);
+        updateViewPort(p2View);
+        //renderer.render(scene, camera);
         frameTime = clock.getDelta();
     }
 

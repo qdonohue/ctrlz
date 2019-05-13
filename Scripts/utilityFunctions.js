@@ -1,3 +1,19 @@
+// Code Pulled From Becky Barber's coloring project:
+// https://beckybarber18.github.io/coloring/
+// B/c I was unsure how to make 3 JS play nice with multiple viewports
+// and couldn't find adequate documentation
+function updateView(camera, l, b, w, h) {
+    const left = Math.floor( window.innerWidth * l );
+    const bottom = Math.floor( window.innerHeight * b );
+    const width = Math.floor( window.innerWidth * w );
+    const height = Math.floor( window.innerHeight * h );
+    renderer.setViewport( left, bottom, width, height );
+    renderer.setScissor( left, bottom, width, height );
+    renderer.setScissorTest( true );
+    renderer.setClearColor( BACKGROUND_COLOR );
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+}
 
 // Discover if a position will collide with a block
 function illegalMove(position, amount) { // if we collide

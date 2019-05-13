@@ -2,7 +2,8 @@
 
 class Player {
 
-    constructor() {
+    constructor(p1) {
+        this.player1 = p1;
         this.moveSpeed = 30;
         this.angleRotated = 0;
         this.ROTATION_SPEED = Math.PI / 1.5;
@@ -12,6 +13,11 @@ class Player {
         this.blockIndex;
         this.survivalTime = 0;
         this.init();
+        if (p1) {
+            this.face(0, -Number.MAX_SAFE_INTEGER);
+        } else {
+            this.face(0, Number.MAX_SAFE_INTEGER);
+        }
         this.totalBlockCount = 0;
         this.lastShot = NaN;
     }
@@ -171,7 +177,11 @@ class Player {
     }
 
     face(x, y) {
-        this.Mesh.lookAt(x, y, 0);
+        if (this.player1) {
+            this.Mesh.lookAt(x, y, this.Mesh.position.z);
+        } else {
+            this.Mesh.lookAt(x, y, -this.Mesh.position.z);
+        }
     }
 
     // move player forward

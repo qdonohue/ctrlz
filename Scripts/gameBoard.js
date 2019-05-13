@@ -5,14 +5,17 @@ function init() {
     Input.keyBoardInit();
     
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xA7A3A3);
+    scene.background = new THREE.Color(BACKGROUND_COLOR);
 
     // camera setup
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
-    camera.position.set(0, 15, -40);
+    // camera.position.set(0, 15, -40); //default
+    camera.position.set(-2, 20, -50); // horizontal
+    p1View.camera = camera;
     
     camera2 = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
-    camera2.position.set(0, 15, -40);
+    camera2.position.set(-2, 20, -50); // horizontal
+    p2View.camera = camera2;
 
     // Add game board
     var platformGeo = new THREE.PlaneGeometry(BOARD_SIDE_LENGTH, 2 * BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH);
@@ -48,9 +51,10 @@ function init() {
     spawn2.position.set(0, -SPAWN_DISTANCE, 0);
     scene.add(spawn2);
 
-    player1 = new Player();
+    player1 = new Player(IS_PLAYER_1);
     player1.addToScene();
-    camera.lookAt(player1.Mesh.position);
+    // Horizontal setup
+    camera.lookAt(player1.Mesh.position.clone().add(new THREE.Vector3(-2, 15, 0)));
     player1.Mesh.add(camera);
 
     // Move player to spawn
@@ -64,9 +68,9 @@ function init() {
     players.push(player1);
 
     // make player 2
-    player2 = new Player();
+    player2 = new Player(!IS_PLAYER_1);
     player2.addToScene();
-    camera2.lookAt(player2.Mesh.position);
+    camera2.lookAt(player2.Mesh.position.clone().add(new THREE.Vector3(-2, 15, 0)));
     player2.Mesh.add(camera2);
 
     // Move player to spawn
@@ -103,8 +107,8 @@ function init() {
     renderer.setClearColor(0x0, 1);
 
     // axis helper to see whats going on
-    /* var axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper); */
+    var axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
 
     document.body.appendChild(renderer.domElement);
 
