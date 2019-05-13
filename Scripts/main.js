@@ -8,34 +8,36 @@ var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
 var players = []; // all players in scen
 
-var BLOCK_COUNT = 100;
-var PLACABLE_COUNT = 65;
-var FREE_BLOCKS_AT_START = 15;
-var BLOCK_PER_SIDE = 10;
-var BOARD_SIDE_LENGTH = 100;
-var BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
+const BLOCK_COUNT = 100;
+const PLACABLE_COUNT = 65;
+const FREE_BLOCKS_AT_START = 15;
+const BLOCK_PER_SIDE = 10;
+const BOARD_SIDE_LENGTH = 100;
+const BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
+const OFFSET_FROM_ORIGIN = 50;
+const SPAWN_DISTANCE = (BOARD_SIDE_LENGTH + BLOCK_SIZE / 2);
 
-var BOX_SUPPLY = 50; // maybe too many?
-var TURRET_SUPPLY = 5;
-var CANNON_SUPPLY = 10;
+const BOX_SUPPLY = 50; // maybe too many?
+const TURRET_SUPPLY = 5;
+const CANNON_SUPPLY = 10;
 
-var BOX_TYPE = 0;
-var TURRET_TYPE = 1;
-var CANNON_TYPE = 2;
+const BOX_TYPE = 0;
+const TURRET_TYPE = 1;
+const CANNON_TYPE = 2;
 
+const PLAYER_COLLISION_DAMAGE = 1;
 
-var PLAYER_COLLISION_DAMAGE = 1;
+const TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
+const TIME_BETWEEN_POSITIONS = 1000;
+const TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
+const TIME_BETWEEN_SHOTS = 250;
 
-var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
-var TIME_BETWEEN_POSITIONS = 1000;
-var TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
-var TIME_BETWEEN_SHOTS = 250;
+const BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
+const FOOTSTEP_COLOR = 0x015359;
+const TURRET_COLOR = [0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee];
+const CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505];
 
-var BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
-var FOOTSTEP_COLOR = 0x015359;
-var TURRET_COLOR = [0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee];
-var CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505];
-
+const IS_PLAYER_1 = true;
 
 var p1BlockOrder = Array(BLOCK_COUNT).fill(NaN);
 var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
@@ -59,7 +61,7 @@ if (DEBUG) {
 // (buildBoard then calls the mainGame loop itself)
 $("#startButton").click(function () {
     $("#startScreen").hide();
-    buildBoard(p1BlockOrder, p1BlockType, true);
+    buildBoard(p1BlockOrder, p1BlockType, IS_PLAYER_1);
 });
 
 /** Decrease bullet lifetime and dispose of bullets */
@@ -76,7 +78,7 @@ function mainGame() {
         requestAnimationFrame(animate);
         temporal.update();
         updateBullets();
-        Input.resolveInput(player1);
+        Input.resolveInput(players);
         renderer.render(scene, camera);
         frameTime = clock.getDelta();
     }

@@ -22,37 +22,37 @@ class Input {
     }
 
     // get keys pressed since last frame
-    static resolveInput(player) {
+    static resolveInput(players) {
 
         // left (a)
         if (Input.keyState[Input.keys.left]) {
             // handle player go left
-            player.rotateLeft();
+            players[0].rotateLeft();
         }
         // right (d)
         if (Input.keyState[Input.keys.right]) {
             // handle player go right
-            player.rotateRight();
+            players[0].rotateRight();
         }
         // forward (w)
         if (Input.keyState[Input.keys.forward]) {
             // handle player go forward
-            player.moveForward();
+            players[0].moveForward();
         }
         // backwards (s)
         if (Input.keyState[Input.keys.backwards]) {
             // handle player go back
-            player.moveBackward();
+            players[0].moveBackward();
         }
         // shoot (space)
         if (Input.keyState[Input.keys.shoot]) {
             // fire bullet from player
-            player.shoot();
+            players[0].shoot();
         }
 
         if (Input.keyState[Input.keys.debug]) {
-            player.goBack(5);
-            player.debug();
+            players[0].goBack(5);
+            players[0].debug();
         }
 
     }
