@@ -6,7 +6,8 @@ var player1, player2;
 var temporal;
 var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
-var players = []; // all players in scen
+var players = []; // all players in scene
+var weapons = []; //all available weapons
 
 const BLOCK_COUNT = 100;
 const PLACABLE_COUNT = 65;
@@ -106,9 +107,22 @@ function updateBullets() {
     bullets[i].update();
 }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 function updateViewPort(view) {
     updateView(view.camera, view.left, view.bottom, view.width, view.height);
     renderer.render(scene, view.camera);
+=======
+=======
+>>>>>>> Stashed changes
+function loadWeapons() {
+    var pistol = new Weapon("pistol", 2, 1000, 0.8);
+    var uzi = new Weapon("uzi", 1, 150, 0.2);
+    weapons.push(pistol, uzi);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 }
 
 
@@ -126,6 +140,7 @@ function mainGame() {
     }
 
     init();
+    loadWeapons();
 
     // HANDLE WINDOW RESIZING
     window.addEventListener("resize", onWindowResize, false);

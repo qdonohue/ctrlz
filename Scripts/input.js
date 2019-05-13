@@ -50,6 +50,11 @@ class Input {
             players[0].shoot();
         }
 
+        if (Input.keyState[Input.keys.switch]) {
+            // switch weapon
+            players[0].switchWeapon();
+        }
+
         if (Input.keyState[Input.keys.debug]) {
             players[0].goBack(5);
             players[0].debug();
@@ -65,7 +70,8 @@ Input.keys = {
     "left": 65,
     "right": 68,
     "debug": 16, // this is shift
-    "shoot": 32 // this is space
+    "shoot": 32, // this is space
+    "switch": 80 // this is p
 };
 
 Input.CAMERA_MOVE_SPEED = .1;

@@ -12,14 +12,24 @@ class Player {
         this.blocks;
         this.blockIndex;
         this.survivalTime = 0;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         this.init();
         if (p1) {
             this.face(0, -Number.MAX_SAFE_INTEGER);
         } else {
             this.face(0, Number.MAX_SAFE_INTEGER);
         }
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         this.totalBlockCount = 0;
         this.lastShot = NaN;
+        this.myWeapons = [];
+        this.currentWeapon = 0;
+        this.init();
+        this.shotSpeed = this.myWeapons[this.currentWeapon].recharge;
     }
 
     // init() {
@@ -57,7 +67,14 @@ class Player {
         this.Mesh.recieveShadow = true;
 
         this.Mesh.geometry.computeBoundingBox();
+
+        var pistol = new Weapon("pistol", 2, 1000, 0.8);
+        var uzi = new Weapon("uzi", 1, 150, 0.2);
+        this.myWeapons.push(pistol, uzi);
+        console.log(this.myWeapons.length);
+
     }
+
 
     checkBlocksVsTime() {
         var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
@@ -217,7 +234,7 @@ class Player {
             var curTime = new Date();
             var ellapsed = curTime - this.lastShot;
 
-            if (ellapsed < TIME_BETWEEN_SHOTS) return;
+            if (ellapsed < this.shotSpeed) return;
 
         }
         this.lastShot = new Date();
@@ -228,6 +245,13 @@ class Player {
         newPosition.addScaledVector(this.facingVector.clone(), 2);
         bullet.spawn(this, newPosition, this.facingVector, acc);
         bullets.push(bullet);
+    }
+
+    switchWeapon() {
+        
+        this.currentWeapon = this.currentWeapon < this.myWeapons.length - 1 ? this.currentWeapon + 1 : 0;
+        this.shotSpeed = this.myWeapons[this.currentWeapon].recharge;
+        console.log("Switched weapon to: " + this.myWeapons[this.currentWeapon].name);
     }
 
     collision(position, amount, gun) {
