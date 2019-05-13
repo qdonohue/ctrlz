@@ -2,10 +2,11 @@
 // Enhanced by using tricks from: https://github.com/juanferrer/red-palito/blob/master/js/main.js (such as getting window resizing)
 
 var scene, camera, clock, renderer, frameTime;
-var player, player2;
+var player1, player2;
 var temporal;
 var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
+var players = []; // all players in scen
 
 var BLOCK_COUNT = 100;
 var PLACABLE_COUNT = 65;
@@ -28,6 +29,7 @@ var PLAYER_COLLISION_DAMAGE = 1;
 var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
 var TIME_BETWEEN_POSITIONS = 1000;
 var TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
+var TIME_BETWEEN_SHOTS = 500;
 
 var BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
 var FOOTSTEP_COLOR = 0x015359;
@@ -72,7 +74,7 @@ function mainGame() {
         requestAnimationFrame(animate);
         temporal.update();
         updateBullets();
-        Input.resolveInput(player);
+        Input.resolveInput(player1);
         renderer.render(scene, camera);
         frameTime = clock.getDelta();
     }

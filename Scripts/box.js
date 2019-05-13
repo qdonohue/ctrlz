@@ -46,9 +46,9 @@ class Box {
         this.cube.position.set(x, y, this.cube.position.z);
     }
 
-    damage(amount) { // damage a block
+    damage(amount, gun) { // damage a block
         // Check if it's been enough time for a collision
-        if (this.lastCollision !== NaN) {
+        if (this.lastCollision !== NaN && !gun) {
             var curTime = new Date();
             var ellapsedTime = curTime - this.lastCollision;
 
@@ -73,14 +73,14 @@ class Box {
         this.cube.material.color.setHex(newColor);
     }
 
-    collision(position, amount) {
+    collision(position, amount, gun) {
         var bbox = this.cube.geometry.boundingBox.clone();
         var min = bbox.min.add(this.cube.position);
         var max = bbox.max.add(this.cube.position);
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                this.damage(amount);
+                this.damage(amount, gun);
                 return true;
             }
         }

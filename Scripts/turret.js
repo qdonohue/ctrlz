@@ -10,9 +10,9 @@ class Turret {
         this.lastCollision = NaN;
         this.hasBeenDestroyed = false;
         if (p1) {
-            this.target = player; // gonna need to change this
+            this.target = players[0]; // gonna need to change this
         } else {
-            this.target = player2; // doesn't exist now, will probably complain...
+            this.target = players[1]; // doesn't exist now, will probably complain...
         }
     }
 

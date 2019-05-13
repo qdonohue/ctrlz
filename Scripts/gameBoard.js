@@ -1,8 +1,6 @@
 function init() {
     clock = new THREE.Clock();
     frameTime = 0;
-
-    temporal = new TemporalManagement();
     
     Input.keyBoardInit();
     
@@ -30,18 +28,24 @@ function init() {
     spawn.position.set(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2, 0);
     scene.add(spawn);
 
-    player = new Player();
-    player.addToScene();
-    camera.lookAt(player.Mesh.position);
-    player.Mesh.add(camera);
+    player1 = new Player();
+    player1.addToScene();
+    camera.lookAt(player1.Mesh.position);
+    player1.Mesh.add(camera);
 
     // Move player to spawn
-    player.place(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2);
+    player1.place(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2);
 
     // give player their blocks
     // have turrets target player 1 for now (by passing false here)
     var playerBlockArray = buildPlayerArray(p1BlockOrder, p1BlockType, false);
-    player.assignBlocks(playerBlockArray);
+    player1.assignBlocks(playerBlockArray);
+
+    players.push(player1);
+
+    
+
+    temporal = new TemporalManagement(players);
 
     // add lights
     const LIGHT_INTENSITY = 2,

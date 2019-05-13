@@ -2,12 +2,23 @@
 // Discover if a position will collide with a block
 function illegalMove(position, amount) { // if we collide
     for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].collision(position, amount)) {
+        if (blocks[i].collision(position, amount, false)) {
             return true;
         }
     }
 
     return false;
+}
+
+function bulletCollision(position, amount) { // if bullet collides
+    for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].collision(position, amount, true)) {
+            return true;
+        }
+    }
+
+    return false;
+
 }
 
 /*function removeFromBlocks(box) {

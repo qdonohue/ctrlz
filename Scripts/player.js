@@ -13,6 +13,7 @@ class Player {
         this.survivalTime = 0;
         this.init();
         this.totalBlockCount = 0;
+        this.lastShot = NaN;
     }
 
     // init() {
@@ -200,12 +201,20 @@ class Player {
     }
 
     shoot() {
+        if (this.lastShot !== NaN) {
+            var curTime = new Date();
+            var ellapsed = curTime - this.lastShot;
+
+            if (ellapsed < TIME_BETWEEN_SHOTS) return;
+
+        }
+        this.lastShot = new Date();
         var id = bullets.length
         var bullet = new Bullet(id);
         var acc = 1.0; // 100%?
         var newPosition = this.position.clone()
         newPosition.add(this.facingVector.clone());
-        bullet.spawn(newPosition, this.facingVector, acc);
+        bullet.spawn(this, newPosition, this.facingVector, acc);
         bullets.push(bullet);
     }
 

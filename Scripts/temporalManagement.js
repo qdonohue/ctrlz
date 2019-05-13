@@ -2,7 +2,8 @@
 
 class TemporalManagement {
 
-    constructor() {
+    constructor(players) {
+        this.players = players;
         this.lastTrackedP = NaN;
         this.lastTrackedB = NaN;
     }
@@ -16,8 +17,11 @@ class TemporalManagement {
             if (ellapsedP < TIME_BETWEEN_POSITIONS) {
                 return;
             }
-        
-            player.updatePosition();
+
+            for (var i = 0; i < this.players.length; i++) {
+                this.players[i].updatePosition();
+            }
+
             this.lastTrackedP = curTime;
             return;
         }
@@ -33,8 +37,11 @@ class TemporalManagement {
             if (ellapsedB < TIME_BETWEEN_BLOCK_PLACEMENT) {
                 return;
             }
-        
-            player.placeNextBlock();
+
+            for (var i = 0; i < this.players.length; i++) {
+                this.players[i].placeNextBlock();
+            }
+            
             this.lastTrackedB = curTime;
             return;
         }
