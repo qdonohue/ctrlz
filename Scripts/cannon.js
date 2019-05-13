@@ -95,6 +95,7 @@ class Cannon {
         if (this.health - amount <= 0) {
             this.hasBeenDestroyed = true;
             removeFromArray(this, blocks);
+            removeFromArray(this, cannons);
             scene.remove(this.cube); // take out of scene
         }
 
