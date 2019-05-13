@@ -39,7 +39,8 @@ function init() {
     player.place(0, (BOARD_SIDE_LENGTH + BLOCK_SIZE) / 2);
 
     // give player their blocks
-    var playerBlockArray = buildPlayerArray(blockOrder);
+    // have turrets target player 1 for now (by passing false here)
+    var playerBlockArray = buildPlayerArray(p1BlockOrder, p1BlockType, false);
     player.assignBlocks(playerBlockArray);
 
     // add lights

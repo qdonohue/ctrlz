@@ -1,6 +1,6 @@
 // Turret Object - shoots at target
 
-class Cannon {
+class Turret {
 
     // p1 is true or false saying if it was placed by p1
     constructor(id, p1) {

@@ -12,6 +12,7 @@ class Player {
         this.blockIndex;
         this.survivalTime = 0;
         this.init();
+        this.totalBlockCount = 0;
     }
 
     // init() {
@@ -54,12 +55,11 @@ class Player {
         var diff = indexShouldBe - this.blockIndex;
 
         if (diff > 0) {
-            console.log("we're behind");
+            if (indexShouldBe >= this.totalBlockCount) return;
             for (var i = 0; i < diff; i++) {
                 this.placeNextBlock();
             }
         } else if (diff < 0) {
-            console.log("we're ahead");
             for (var i = 0; i < -diff; i++) {
                 this.removeBlock();
             }
@@ -73,9 +73,10 @@ class Player {
 
     assignBlocks(blocks) {
         this.blocks = blocks;
+        this.totalBlockCount = this.blocks.length;
         this.blockIndex = 0;
-
         for (var i = 0; i < FREE_BLOCKS_AT_START; i++) {
+            if (i == this.totalBlockCount) return;
             this.blocks[i].show();
             this.blockIndex++;
         }
@@ -135,12 +136,13 @@ class Player {
 
     placeNextBlock() {
         while (this.blocks[this.blockIndex].destroyed()) {
-            if (this.blockIndex == PLACABLE_COUNT) return;
+            if (this.blockIndex == totalBlockCount - 1) return;
             this.blockIndex++;
         }
 
         this.blocks[this.blockIndex].show();
         this.blockIndex++;
+        
     }
 
     /**
@@ -206,9 +208,7 @@ class Player {
 
     // Helper function to check stuff
     debug() {
-        var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
-        var diff = indexShouldBe - this.blockIndex;
-        console.log(diff);
+
     }
 
 }

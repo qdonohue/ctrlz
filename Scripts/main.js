@@ -14,6 +14,15 @@ var BLOCK_PER_SIDE = 10;
 var BOARD_SIDE_LENGTH = 100;
 var BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
 
+var BOX_SUPPLY = 50; // maybe too many?
+var TURRET_SUPPLY = 5;
+var CANNON_SUPPLY = 10;
+
+var BOX_TYPE = 0;
+var TURRET_TYPE = 1;
+var CANNON_TYPE = 2;
+
+
 var PLAYER_COLLISION_DAMAGE = 1;
 
 var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
@@ -26,15 +35,15 @@ var TURRET_COLOR = [0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 
 var CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505];
 
 
-var blockOrder = Array(BLOCK_COUNT).fill(NaN);
-var blockLocations = Array(BLOCK_COUNT).fill(NaN);
-var highestBlockIndex = 0;
+var p1BlockOrder = Array(BLOCK_COUNT).fill(NaN);
+var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
 
 var DEBUG = false;
 
 if (DEBUG) {
     for (var i = 0; i < BLOCK_COUNT; i++) {
-        blockOrder[i] = i;
+        p1BlockOrder[i] = i;
+        p1BlockType[i] = BOX_TYPE;
     }
     $("#startScreen").hide();
     mainGame();
@@ -46,7 +55,7 @@ if (DEBUG) {
 // (buildBoard then calls the mainGame loop itself)
 $("#startButton").click(function () {
     $("#startScreen").hide();
-    buildBoard();
+    buildBoard(p1BlockOrder, p1BlockType);
 });
 
 /** Decrease bullet lifetime and dispose of bullets */
