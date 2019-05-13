@@ -200,9 +200,12 @@ class Player {
     }
 
     shoot() {
-        var bullet = new Bullet();
+        var id = bullets.length
+        var bullet = new Bullet(id);
         var acc = 1.0; // 100%?
-        bullet.spawn(this.position, this.facingVector, acc);
+        var newPosition = this.position.clone()
+        newPosition.add(this.facingVector.clone());
+        bullet.spawn(newPosition, this.facingVector, acc);
         bullets.push(bullet);
     }
 
