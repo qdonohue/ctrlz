@@ -1,5 +1,6 @@
 class Bullet { // eslint-disable-line no-unused-vars
-	constructor() {
+	constructor(id) {
+		this.id = id;
 		this.Geometry = new THREE.CylinderBufferGeometry(0.05, 0.05, 4, 5, 1);
 		this.Material = new THREE.MeshBasicMaterial();
 		this.Mesh = new THREE.Mesh(this.Geometry, this.Material);
@@ -22,6 +23,10 @@ class Bullet { // eslint-disable-line no-unused-vars
 		return this.Mesh.position;
 	}
 
+	getID() {
+			return this.id;
+	}
+
 	/**
      * Prepare a bullet and place it in the right position
      * @param {THREE.Vector3} pos Spawning position
@@ -30,7 +35,7 @@ class Bullet { // eslint-disable-line no-unused-vars
 	 * @param {number} sp Speed of bullet
 	 * @param {number} lt Lifetime
      */
-	spawn(pos, dir, acc, sp = 1.8, lt = this.initialLifeTime) {
+	spawn(pos, dir, acc, sp = 1.0, lt = this.initialLifeTime) {
 		this.direction = dir;
 		this.isAlive = true;
 		this.lifeTime = lt;
@@ -57,6 +62,17 @@ class Bullet { // eslint-disable-line no-unused-vars
 
 		this.direction.add(new THREE.Vector3(randX, 0, randZ));
 		this.Mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), this.direction.normalize());
+	}
+
+	// Calulate new position and check for collisions
+	update() {
+			this.position.add(this.direction.multiplyScalar(this.speed));
+			if (illegalMove(this.position, PLAYER_COLLISION_DAMAGE) ||
+			this.position.distanceTo(player.position) > 100.0) {
+				removeFromArray(this, bullets);
+				scene.remove(this.Mesh);
+			}
+
 	}
 
 	/**

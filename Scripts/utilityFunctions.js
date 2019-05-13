@@ -1,6 +1,6 @@
 
 // Discover if a position will collide with a block
-function illegalMove(position, amount) { // if we collide 
+function illegalMove(position, amount) { // if we collide
     for (var i = 0; i < blocks.length; i++) {
         if (blocks[i].collision(position, amount)) {
             return true;
@@ -10,13 +10,26 @@ function illegalMove(position, amount) { // if we collide
     return false;
 }
 
-function removeFromBlocks(box) {
+/*function removeFromBlocks(box) {
     var goalId = box.getID();
 
     for (var i = 0; i < BLOCK_COUNT; i++) {
+      console.log(BLOCK_COUNT)
         var cur = blocks[i];
         if (cur.getID() == goalId) {
             blocks.splice(i, 1); // get rid of the offending block
+            return;
+        }
+    }
+}
+*/
+function removeFromArray(item, array) {
+    var goalId = item.getID();
+
+    for (var i = 0; i < array.length; i++) {
+        var cur = array[i];
+        if (cur.getID() == goalId) {
+            array.splice(i, 1); // get rid of the offending bullet
             return;
         }
     }

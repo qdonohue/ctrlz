@@ -39,7 +39,7 @@ class Box {
 
     remove() {
         scene.remove(this.cube);
-        removeFromBlocks(this);
+        removeFromArray(this, blocks);
     }
 
     place(x, y) {
@@ -60,7 +60,7 @@ class Box {
 
         if (this.health - amount <= 0) {
             this.hasBeenDestroyed = true;
-            removeFromBlocks(this); // take out of collision calculations
+            removeFromArray(this, blocks); // take out of collision calculations
             scene.remove(this.cube); // take out of scene
         }
 
@@ -69,7 +69,7 @@ class Box {
 
         // change color
         var newColor = BLOCK_COLOR[curColor];
-        
+
         this.cube.material.color.setHex(newColor);
     }
 

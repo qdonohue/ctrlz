@@ -30,7 +30,7 @@ var blockOrder = Array(BLOCK_COUNT).fill(NaN);
 var blockLocations = Array(BLOCK_COUNT).fill(NaN);
 var highestBlockIndex = 0;
 
-var DEBUG = false;
+var DEBUG = true;
 
 if (DEBUG) {
     for (var i = 0; i < BLOCK_COUNT; i++) {
@@ -50,20 +50,10 @@ $("#startButton").click(function () {
 });
 
 /** Decrease bullet lifetime and dispose of bullets */
-function updateBullet() {
-  //console.log(bullets.length);
-  for (i=0; i < bullets.length; i++) {
-    // check for collision
-    /*if (bullets[i].position.distanceTo(player.position) < 3.0) {
-      bullets[i].reset();
-      bullets.pop(bullets[i]);
-      continue;
-    }
-    */
-    // movement
-    bullets[i].position.add(bullets[i].direction.multiplyScalar(bullets[i].speed));
-
-  }
+function updateBullets() {
+  console.log(bullets.length);
+  for (i=0; i < bullets.length; i++)
+    bullets[i].update();
 }
 
 
@@ -72,7 +62,7 @@ function mainGame() {
     function animate() {
         requestAnimationFrame(animate);
         temporal.update();
-        updateBullet();
+        updateBullets();
         Input.resolveInput(player);
         renderer.render(scene, camera);
         frameTime = clock.getDelta();
