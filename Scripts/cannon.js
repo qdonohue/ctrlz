@@ -78,7 +78,7 @@ class Cannon {
 
         if (this.health - amount <= 0) {
             this.hasBeenDestroyed = true;
-            removeFromBlocks(this); // take out of collision calculations
+            removeFromArray(this, blocks);
             scene.remove(this.cube); // take out of scene
         }
 

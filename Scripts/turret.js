@@ -82,7 +82,7 @@ class Turret {
 
         if (this.health - amount <= 0) {
             this.hasBeenDestroyed = true;
-            removeFromBlocks(this); // take out of collision calculations
+            removeFromArray(this, blocks); // take out of collision calculations
             scene.remove(this.cube); // take out of scene
         }
 

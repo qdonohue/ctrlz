@@ -30,18 +30,6 @@ function updateCounterNumbers(placeable) {
     $("#cannon-count").html(placeable[CANNON_TYPE]);
 }
 
-function matchOrderAndType(order, type) {
-    var matched = Array(BLOCK_COUNT).fill(NaN);
-
-    for (var i = 0; i < order.length; i++) {
-        matched[i] = type[order[i]];
-    }
-
-    console.log(matched);
-
-    return matched;
-}
-
 function buildBoard(blockOrder, blockType) {
     // variables we'll need
     var blockLocations = Array(BLOCK_COUNT).fill(NaN);
@@ -215,7 +203,6 @@ function buildBoard(blockOrder, blockType) {
 
     onwards.onclick = function() {
         $("#build_main").hide();
-        blockType = matchOrderAndType(blockOrder, blockType);
         mainGame();
     };
 

@@ -29,7 +29,7 @@ var PLAYER_COLLISION_DAMAGE = 1;
 var TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
 var TIME_BETWEEN_POSITIONS = 1000;
 var TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
-var TIME_BETWEEN_SHOTS = 500;
+var TIME_BETWEEN_SHOTS = 250;
 
 var BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
 var FOOTSTEP_COLOR = 0x015359;
@@ -40,7 +40,7 @@ var CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 
 var p1BlockOrder = Array(BLOCK_COUNT).fill(NaN);
 var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
 
-var DEBUG = true;
+var DEBUG = false;
 
 if (DEBUG) {
     for (var i = 0; i < BLOCK_COUNT; i++) {
