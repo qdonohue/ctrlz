@@ -12,23 +12,16 @@ class Player {
         this.blocks;
         this.blockIndex;
         this.survivalTime = 0;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+        this.myWeapons = [];
+        this.currentWeapon = 0;
         this.init();
         if (p1) {
             this.face(0, -Number.MAX_SAFE_INTEGER);
         } else {
             this.face(0, Number.MAX_SAFE_INTEGER);
         }
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         this.totalBlockCount = 0;
         this.lastShot = NaN;
-        this.myWeapons = [];
-        this.currentWeapon = 0;
-        this.init();
         this.shotSpeed = this.myWeapons[this.currentWeapon].recharge;
     }
 
