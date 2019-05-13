@@ -55,6 +55,8 @@ class Player {
         this.Mesh.position.add(new THREE.Vector3(0, 0, 1.5));
         this.Mesh.castShadow = true;
         this.Mesh.recieveShadow = true;
+
+        this.Mesh.geometry.computeBoundingBox();
     }
 
     checkBlocksVsTime() {
@@ -149,7 +151,7 @@ class Player {
 
         this.blocks[this.blockIndex].show();
         this.blockIndex++;
-        
+
     }
 
     /**
@@ -226,6 +228,26 @@ class Player {
         newPosition.add(this.facingVector.clone());
         bullet.spawn(this, newPosition, this.facingVector, acc);
         bullets.push(bullet);
+    }
+
+    collision(position, amount, gun) {
+        var bbox = this.Mesh.geometry.boundingBox.clone();
+        var min = bbox.min.add(this.Mesh.position);
+        var max = bbox.max.add(this.Mesh.position);
+
+        if (position.x > min.x && position.x < max.x) {
+            if (position.y > min.y && position.y < max.y) {
+                this.damage(amount, gun);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Doesn't do anything yet except confirm the hit.
+    // Not sure if we actually want Health, or if we're just going to goBack
+    damage(amount, gun) {
+      console.log("Hit detected!");
     }
 
     // Helper function to check stuff
