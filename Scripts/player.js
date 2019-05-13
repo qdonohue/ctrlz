@@ -225,7 +225,7 @@ class Player {
         var bullet = new Bullet(id);
         var acc = 1.0; // 100%?
         var newPosition = this.position.clone()
-        newPosition.add(this.facingVector.clone());
+        newPosition.addScaledVector(this.facingVector.clone(), 2);
         bullet.spawn(this, newPosition, this.facingVector, acc);
         bullets.push(bullet);
     }

@@ -40,19 +40,6 @@ function bulletCollision(position, amount) { // if bullet collides
 
 }
 
-/*function removeFromBlocks(box) {
-    var goalId = box.getID();
-
-    for (var i = 0; i < BLOCK_COUNT; i++) {
-      console.log(BLOCK_COUNT)
-        var cur = blocks[i];
-        if (cur.getID() == goalId) {
-            blocks.splice(i, 1); // get rid of the offending block
-            return;
-        }
-    }
-}
-*/
 function removeFromArray(item, array) {
     var goalId = item.getID();
 
