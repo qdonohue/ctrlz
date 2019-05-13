@@ -232,7 +232,7 @@ class Player {
         }
         this.lastShot = new Date();
         var id = bullets.length
-        var bullet = new Bullet(id);
+        var bullet = new Bullet(id, 2);
         var acc = 1.0; // 100%?
         var newPosition = this.position.clone()
         newPosition.addScaledVector(this.facingVector.clone(), 2);
@@ -241,7 +241,7 @@ class Player {
     }
 
     switchWeapon() {
-        
+
         this.currentWeapon = this.currentWeapon < this.myWeapons.length - 1 ? this.currentWeapon + 1 : 0;
         this.shotSpeed = this.myWeapons[this.currentWeapon].recharge;
         console.log("Switched weapon to: " + this.myWeapons[this.currentWeapon].name);

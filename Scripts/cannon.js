@@ -11,15 +11,17 @@ class Cannon {
         this.hasBeenDestroyed = false;
         if (p1) {
             this.direction = new THREE.Vector3(0, -1, 0);
+            this.owner = player1;
         } else {
             this.direction = new THREE.Vector3(0, 1, 0);
+            this.owner = player2;
         }
     }
 
     init() {
         // ideally modify this too. But modification of the geometry
         // means WE MUST modify the collision code - otherwise it won't work...
-        // I think the position of the block is at the center, so it's +- 5 to 
+        // I think the position of the block is at the center, so it's +- 5 to
         // the edges if we wanna manually compute the bounding box off that
         // (min.x = position.x - 5), (max.x = position.x + 5, etc)
         var sideLength = BLOCK_SIZE;
@@ -32,9 +34,23 @@ class Cannon {
         this.cube.recieveShadow = true;
     }
 
+    // Spawns a (larger) bullet
     shoot() {
-        // CODY: Your code goes here. Should spawn a bullet (ideally a larger bullet)
+        if (this.lastShot !== NaN) {
+            var curTime = new Date();
+            var ellapsed = curTime - this.lastShot;
 
+            if (ellapsed < TIME_BETWEEN_SHOTS) return;
+
+        }
+        this.lastShot = new Date();
+        var id = bullets.length
+        var bullet = new Bullet(id, 10);
+        var acc = 1.0; // 100%?
+        var newPosition = this.cube.position.clone()
+        newPosition.add(this.direction.clone().multiplyScalar(5.0));
+        bullet.spawn(this.owner, newPosition, this.direction, acc);
+        bullets.push(bullet);
     }
 
     getID() {
@@ -87,7 +103,7 @@ class Cannon {
 
         // change color
         var newColor = CANNON_COLOR[curColor];
-        
+
         this.cube.material.color.setHex(newColor);
     }
 

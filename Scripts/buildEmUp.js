@@ -13,7 +13,7 @@ function getPositionP2(number) {
 
     var xFin = xBase + 10 * x;
     var yFin = yBase - 10 * y;
-    
+
     var position = {};
     position.x = xFin;
     position.y = yFin;
@@ -34,7 +34,7 @@ function getPositionP1(number) {
 
     var xFin = xBase - 10 * x;
     var yFin = yBase + 10 * y;
-    
+
     var position = {};
     position.x = xFin;
     position.y = yFin;
@@ -66,6 +66,7 @@ function buildPlayerArray(given, type, p1) {
             var curBlock = new Cannon(blockID, p1);
             curBlock.place(curPosition.x, curPosition.y);
             finished.push(curBlock);
+            cannons.push(curBlock);
         }
     }
 

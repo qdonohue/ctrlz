@@ -1,7 +1,8 @@
 class Bullet { // eslint-disable-line no-unused-vars
-	constructor(id) {
+	constructor(id, size) {
 		this.id = id;
-		this.Geometry = new THREE.CylinderBufferGeometry(0.05, 0.05, 4, 5, 1);
+		let radius = size/10.0;
+		this.Geometry = new THREE.CylinderBufferGeometry(radius, radius, 4, 5, 1);
 		this.Material = new THREE.MeshBasicMaterial();
 		this.Mesh = new THREE.Mesh(this.Geometry, this.Material);
 		this.isAlive = false;
@@ -69,7 +70,7 @@ class Bullet { // eslint-disable-line no-unused-vars
 	update() {
 			this.position.add(this.direction.multiplyScalar(this.speed));
 			if (bulletCollision(this.position, this.damage) ||
-			this.position.distanceTo(this.owner.position) > 300.0) {
+			this.position.distanceTo(player1.position) > 300.0) { //TODO: Change to non-arbitrary pos
 				removeFromArray(this, bullets);
 				scene.remove(this.Mesh);
 			}

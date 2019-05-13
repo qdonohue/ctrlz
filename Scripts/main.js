@@ -6,6 +6,7 @@ var player1, player2;
 var temporal;
 var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
+var cannons = [];
 var players = []; // all players in scene
 var weapons = []; //all available weapons
 
@@ -80,7 +81,7 @@ var p2View = {
     height: 1.0
 }; */
 
-var DEBUG = true;
+var DEBUG = false;
 
 if (DEBUG) {
     for (var i = 0; i < BLOCK_COUNT; i++) {
@@ -107,6 +108,12 @@ function updateBullets() {
     bullets[i].update();
 }
 
+function shootCannons() {
+  //console.log(cannons.length);
+  for (i=0; i < cannons.length; i++)
+    cannons[i].shoot();
+}
+
 
 function updateViewPort(view) {
     updateView(view.camera, view.left, view.bottom, view.width, view.height);
@@ -119,6 +126,7 @@ function mainGame() {
     function animate() {
         requestAnimationFrame(animate);
         temporal.update();
+        shootCannons();
         updateBullets();
         Input.resolveInput(players);
         updateViewPort(p1View);
@@ -142,4 +150,3 @@ function mainGame() {
     animate();
 
 }
-
