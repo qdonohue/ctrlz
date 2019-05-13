@@ -237,7 +237,7 @@ class Player {
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                this.damage(amount, gun);
+                this.damage(amount);
                 return true;
             }
         }
@@ -246,8 +246,10 @@ class Player {
 
     // Doesn't do anything yet except confirm the hit.
     // Not sure if we actually want Health, or if we're just going to goBack
-    damage(amount, gun) {
+    // Don't need gun variable, since player is only gonna be sent back by guns
+    damage(amount) {
       console.log("Hit detected!");
+      this.goBack(amount);
     }
 
     // Helper function to check stuff

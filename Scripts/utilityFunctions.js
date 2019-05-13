@@ -26,13 +26,14 @@ function illegalMove(position, amount) { // if we collide
     return false;
 }
 
-function bulletCollision(position, amount) { // if bullet collides
-    for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].collision(position, amount, true))
-            return true;
-    }
+function bulletCollision(position, amount) { // if bullet collides  
     for (var i = 0; i < players.length; i++) {
         if (players[i].collision(position, amount, true))
+            return true;
+    }
+    
+    for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].collision(position, amount, true))
             return true;
     }
     return false;
