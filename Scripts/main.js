@@ -51,7 +51,7 @@ $("#startButton").click(function () {
 
 /** Decrease bullet lifetime and dispose of bullets */
 function updateBullets() {
-  console.log(bullets.length);
+  //console.log(bullets.length);
   for (i=0; i < bullets.length; i++)
     bullets[i].update();
 }
