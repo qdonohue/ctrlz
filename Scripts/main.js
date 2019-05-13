@@ -39,6 +39,8 @@ var CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 
 
 var p1BlockOrder = Array(BLOCK_COUNT).fill(NaN);
 var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
+var p2BlockOrder = Array(BLOCK_COUNT).fill(NaN);
+var p2BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
 
 var DEBUG = false;
 
@@ -57,7 +59,7 @@ if (DEBUG) {
 // (buildBoard then calls the mainGame loop itself)
 $("#startButton").click(function () {
     $("#startScreen").hide();
-    buildBoard(p1BlockOrder, p1BlockType);
+    buildBoard(p1BlockOrder, p1BlockType, true);
 });
 
 /** Decrease bullet lifetime and dispose of bullets */

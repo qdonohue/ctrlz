@@ -30,7 +30,8 @@ function updateCounterNumbers(placeable) {
     $("#cannon-count").html(placeable[CANNON_TYPE]);
 }
 
-function buildBoard(blockOrder, blockType) {
+// p1 = boolean indicating whether or not it's player 1
+function buildBoard(blockOrder, blockType, p1) {
     // variables we'll need
     var blockLocations = Array(BLOCK_COUNT).fill(NaN);
     var highestBlockIndex = 0;
@@ -47,7 +48,12 @@ function buildBoard(blockOrder, blockType) {
     // Instructional text
     var text = document.createElement('div');
     text.id = "instructions";
-    text.innerHTML = 'Click to place / remove a block';
+    var playerName = "Player 1 ";
+    if (!p1) {
+        playerName = "Player 2 ";
+    }
+    var instructionString = playerName + 'Click to place / remove a block';
+    text.innerHTML = instructionString;
     topLevel.appendChild(text);
 
     // Hold grid board, and label of which unit is selected / how many you have
@@ -197,13 +203,21 @@ function buildBoard(blockOrder, blockType) {
     // Continue button
     var onwards = document.createElement('INPUT');
     onwards.type = 'button';
-    onwards.value='Continue';
+    if (p1) {
+        onwards.value='Continue';
+    } else {
+        onwards.value='Begin';
+    }
     onwards.id = "continue-button";
     onwards.className = "fancyButton";
 
     onwards.onclick = function() {
-        $("#build_main").hide();
-        mainGame();
+        $("#build_main").remove();
+        if (p1) {
+            buildBoard(p2BlockOrder, p2BlockType, false);
+        } else {
+            mainGame();
+        }
     };
 
     bottomParent.appendChild(onwards);
