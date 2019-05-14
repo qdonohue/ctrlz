@@ -112,15 +112,6 @@ class Player {
     }
 
     goBack(numPositions) {
-        var curTime = new Date();
-        if (this.lastReversed !== NaN) { // it registers key press too fast
-            var ellapsed = curTime - this.lastReversed;
-            if (ellapsed < TIME_BETWEEN_DAMAGE) {
-                return;
-            }
-        }
-        this.lastReversed = curTime;
-
         var undoAmount = numPositions;
 
         if (this.positions.length === 0) {
@@ -142,6 +133,8 @@ class Player {
 
         var newX = footFall.x;
         var newY = footFall.y;
+
+        console.log("Going back " + undoAmount + " positions");
 
         this.place(newX, newY);
 
@@ -259,18 +252,12 @@ class Player {
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                this.damage(amount);
+                console.log("ouch");
+                this.goBack(Math.max(1, amount * 5));
                 return true;
             }
         }
         return false;
-    }
-
-    // Doesn't do anything yet except confirm the hit.
-    // Not sure if we actually want Health, or if we're just going to goBack
-    // Don't need gun variable, since player is only gonna be sent back by guns
-    damage(amount) {
-      this.goBack(amount);
     }
 
     // Helper function to check stuff

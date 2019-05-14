@@ -120,7 +120,6 @@ class Cannon {
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                console.log(this);
                 if (p1 === this.p1) return true;
                 this.damaged(amount, gun);
                 return true;
