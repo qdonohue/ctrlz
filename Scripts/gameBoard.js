@@ -60,11 +60,6 @@ function init() {
     // Move player to spawn
     player1.place(0, SPAWN_DISTANCE);
 
-    // give player their blocks
-    // have turrets target player 1 for now (by passing false here)
-    var playerBlockArray = buildPlayerArray(p1BlockOrder, p1BlockType, IS_PLAYER_1);
-    player1.assignBlocks(playerBlockArray);
-
     players.push(player1);
 
     // make player 2
@@ -76,12 +71,17 @@ function init() {
     // Move player to spawn
     player2.place(0, -SPAWN_DISTANCE);
 
+    players.push(player2);
+
+    // give player their blocks
+    // have turrets target player 1 for now (by passing false here)
+    var playerBlockArray = buildPlayerArray(p1BlockOrder, p1BlockType, IS_PLAYER_1);
+    player1.assignBlocks(playerBlockArray);
+
     // give player their blocks
     // have turrets target player 1 for now (by passing false here)
     var player2BlockArray = buildPlayerArray(p2BlockOrder, p2BlockType, !IS_PLAYER_1);
     player2.assignBlocks(player2BlockArray);
-
-    players.push(player2);
 
     temporal = new TemporalManagement(players);
 
