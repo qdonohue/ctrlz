@@ -82,7 +82,7 @@ class Player {
 
 
     checkBlocksVsTime() {
-        var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
+        var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + FREE_BLOCKS_AT_START;
         var diff = indexShouldBe - this.blockIndex;
 
         if (diff > 0) {

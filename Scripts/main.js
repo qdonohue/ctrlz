@@ -80,7 +80,7 @@ var p2View = {
     camera: undefined,
     left: 0,
     bottom: 0,
-    width: 1,
+    width: 1.0,
     height: .5
 };
 
