@@ -6,6 +6,10 @@ class Weapon {
         this.accuracy = accuracy;
     }
 
+    getDamage() {
+        return this.damage;
+    }
+
     getRecharge() {
         return this.recharge;
     }

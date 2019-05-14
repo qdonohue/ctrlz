@@ -36,8 +36,6 @@ class TemporalManagement {
 
             if (ellapsed < TIME_BETWEEN_CANNON_SHOTS) return;
 
-            console.log("Time to fire a cannon!");
-
             for (var i = 0; i < cannons.length; i++) {
                 cannons[i].shoot();
             }

@@ -26,18 +26,18 @@ function illegalMove(position, amount) { // if we collide
     return false;
 }
 
-function bulletCollision(position, amount) { // if bullet collides  
-    for (var i = 0; i < players.length; i++) {
-        if (players[i].collision(position, amount, true))
-            return true;
+function bulletCollision(position, amount, p1) { // if bullet collides
+    if (p1) {
+        if (players[1].collision(position, amount)) return true;
+    } else {
+        if (players[0].collision(position, amount)) return true;
     }
     
     for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].collision(position, amount, true))
+        if (blocks[i].collision(position, amount, true, p1))
             return true;
     }
     return false;
-
 }
 
 function removeFromArray(item, array) {

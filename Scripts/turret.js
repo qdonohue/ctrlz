@@ -16,6 +16,7 @@ class Turret {
             this.owner = player2;
             this.target = player1;
         }
+        this.p1 = p1;
     }
 
     init() {
@@ -34,6 +35,10 @@ class Turret {
         this.cube.recieveShadow = true;
     }
 
+    getOwner() {
+        return this.p1;
+    }
+
     // Spawns a (targeted) bullet
     shoot() {
         if (this.lastShot !== NaN) {
@@ -44,8 +49,8 @@ class Turret {
 
         }
         this.lastShot = new Date();
-        var id = bullets.length
-        var bullet = new Bullet(id, 10);
+        var bullet = new Bullet(5, this.p1);
+        bullet.setDamage(TURRET_DAMAGE);
         var acc = 1.0; // 100%?
         var newPosition = this.cube.position.clone()
         var targetVector = new THREE.Vector3();
@@ -82,9 +87,9 @@ class Turret {
         this.cube.position.set(x, y, this.cube.position.z);
     }
 
-    damage(amount) { // damage a block
+    damage(amount, gun) { // damage a block
         // Check if it's been enough time for a collision
-        if (this.lastCollision !== NaN) {
+        if (this.lastCollision !== NaN && !gun) {
             var curTime = new Date();
             var ellapsedTime = curTime - this.lastCollision;
 
@@ -110,14 +115,15 @@ class Turret {
         this.cube.material.color.setHex(newColor);
     }
 
-    collision(position, amount) {
+    collision(position, amount, gun, p1=!this.p1) {
         var bbox = this.cube.geometry.boundingBox.clone();
         var min = bbox.min.add(this.cube.position);
         var max = bbox.max.add(this.cube.position);
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                this.damage(amount);
+                if (p1 === this.p1) return true;
+                this.damage(amount, gun);
                 return true;
             }
         }

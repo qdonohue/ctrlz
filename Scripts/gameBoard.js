@@ -107,8 +107,8 @@ function init() {
     renderer.setClearColor(0x0, 1);
 
     // axis helper to see whats going on
-    var axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
+    /* var axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper); */
 
     document.body.appendChild(renderer.domElement);
 

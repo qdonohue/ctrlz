@@ -10,6 +10,8 @@ class Cannon {
         this.lastCollision = NaN;
         this.hasBeenDestroyed = false;
         this.hidden = true;
+        this.damage = CANNON_DAMAGE;
+        this.p1 = p1;
         if (p1) {
             this.direction = new THREE.Vector3(0, -1, 0);
             this.owner = player1;
@@ -35,12 +37,18 @@ class Cannon {
         this.cube.recieveShadow = true;
     }
 
+    getOwner() {
+        return this.p1;
+    }
+
     // Spawns a (larger) bullet
     shoot() {
         if (this.hasBeenDestroyed) return;
         if (this.hidden) return;
-        var bullet = new Bullet(10);
+        var bullet = new Bullet(10, this.p1);
         var acc = 1.0; // 100%?
+        bullet.setColor(0x777777);
+        bullet.setDamage(this.damage);
         var newPosition = this.cube.position.clone()
         newPosition.add(this.direction.clone().multiplyScalar(5.0));
         bullet.spawn(this.owner, newPosition, this.direction, acc);
@@ -76,9 +84,9 @@ class Cannon {
         this.cube.position.set(x, y, this.cube.position.z);
     }
 
-    damage(amount) { // damage a block
+    damaged(amount, gun) { // damage a block
         // Check if it's been enough time for a collision
-        if (this.lastCollision !== NaN) {
+        if (this.lastCollision !== NaN && !gun) {
             var curTime = new Date();
             var ellapsedTime = curTime - this.lastCollision;
 
@@ -104,14 +112,17 @@ class Cannon {
         this.cube.material.color.setHex(newColor);
     }
 
-    collision(position, amount) {
+    collision(position, amount, gun, p1=!this.p1) {
+        if (this.hasBeenDestroyed) return;
         var bbox = this.cube.geometry.boundingBox.clone();
         var min = bbox.min.add(this.cube.position);
         var max = bbox.max.add(this.cube.position);
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                this.damage(amount);
+                console.log(this);
+                if (p1 === this.p1) return true;
+                this.damaged(amount, gun);
                 return true;
             }
         }

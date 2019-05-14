@@ -1,11 +1,12 @@
 class Box {
 
-    constructor(id) {
+    constructor(id, p1) {
         this.id = id;
         this.health = 10;
         this.init();
         this.lastCollision = NaN;
         this.hasBeenDestroyed = false;
+        this.p1 = p1;
     }
 
     init() {
@@ -17,6 +18,10 @@ class Box {
         this.cube.position.add(new THREE.Vector3(0, 0, sideLength / 2));
         this.cube.castShadow = true;
         this.cube.recieveShadow = true;
+    }
+
+    getOwner() {
+        return this.owner;
     }
 
     getID() {
@@ -73,13 +78,14 @@ class Box {
         this.cube.material.color.setHex(newColor);
     }
 
-    collision(position, amount, gun) {
+    collision(position, amount, gun, p1 = !this.p1) {
         var bbox = this.cube.geometry.boundingBox.clone();
         var min = bbox.min.add(this.cube.position);
         var max = bbox.max.add(this.cube.position);
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
+                if (p1 === this.p1) return true;
                 this.damage(amount, gun);
                 return true;
             }
