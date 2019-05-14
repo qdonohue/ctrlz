@@ -17,6 +17,8 @@ function updateView(camera, l, b, w, h) {
 
 // Discover if a position will collide with a block
 function illegalMove(position, amount) { // if we collide
+    if (position.x < MIN_X || position.x > MAX_X) return true;
+    if (position.y < MIN_Y || position.y > MAX_Y) return true;
     for (var i = 0; i < blocks.length; i++) {
         if (blocks[i].collision(position, amount, false)) {
             return true;

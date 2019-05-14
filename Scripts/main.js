@@ -40,6 +40,7 @@ const TURRET_DAMAGE = 5;
 const TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
 const TIME_BETWEEN_POSITIONS = 1000;
 const TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
+const TIME_BETWEEN_WEAPON_SWAPS = 1000;
 const TIME_BETWEEN_SHOTS = 250;
 const TIME_BETWEEN_CANNON_SHOTS = 1000;
 const TIME_BETWEEN_TURRET_SHOTS = 1500;
@@ -50,6 +51,12 @@ const BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262,
 const FOOTSTEP_COLOR = 0x015359;
 const TURRET_COLOR = [0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee];
 const CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505];
+const WALL_COLOR = 0x496163;
+
+const MIN_X = -BOARD_SIDE_LENGTH / 2;
+const MAX_X = BOARD_SIDE_LENGTH / 2;
+const MIN_Y = -BOARD_SIDE_LENGTH - BLOCK_SIZE;
+const MAX_Y = BOARD_SIDE_LENGTH + BLOCK_SIZE;
 
 const IS_PLAYER_1 = true;
 
@@ -97,7 +104,9 @@ var p2View = {
 var DEBUG = false;
 
 if (DEBUG) {
-    for (var i = 0; i < BLOCK_COUNT; i++) {
+    for (var i = 0; i < 10; i++) {
+        p2BlockOrder[i] = i;
+        p2BlockType[i] = BOX_TYPE;
         p1BlockOrder[i] = i;
         p1BlockType[i] = BOX_TYPE;
     }

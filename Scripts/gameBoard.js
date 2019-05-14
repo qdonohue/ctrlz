@@ -38,6 +38,7 @@ function init() {
     platform.recieveShadow = true;
     scene.add(platform);
 
+    addWalls();
     // add mid line
     var midLineMat = new THREE.LineBasicMaterial( {color: 0x000000, linewidth: 5});
     var midLineGeo = new THREE.Geometry();
@@ -55,7 +56,7 @@ function init() {
     spawn.position.set(0, SPAWN_DISTANCE, 0);
     scene.add(spawn);
 
-    // add second spaw platform
+    // add second spawn platform
     var spawnGeo2 = new THREE.PlaneGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     var spawnMaterial2 = new THREE.MeshLambertMaterial( {color: 0xffe900});
     var spawn2 = new THREE.Mesh(spawnGeo2, spawnMaterial2);
@@ -128,4 +129,52 @@ function init() {
     //platform.translateY(2.5);
 
     renderer.render(scene, camera);
+}
+
+function addWalls() {
+    
+    // add left wall
+    var lwallGeo = new THREE.PlaneGeometry(20, 2 * BOARD_SIDE_LENGTH, 10);
+    var lwallMat = new THREE.MeshBasicMaterial({color: WALL_COLOR});
+    var lwall = new THREE.Mesh(lwallGeo, lwallMat);
+    lwall.castShadow = false;
+    lwall.recieveShadow = false;
+    lwall.rotation.set(0, Math.PI/2, 0);
+    lwall.position.z += 10;
+    lwall.position.x += BOARD_SIDE_LENGTH / 2; 
+    lwall.material.side = THREE.BackSide;
+    scene.add(lwall);
+
+    // right wall
+    var rwall = new THREE.Mesh(lwallGeo, lwallMat); // can steal mesh
+    rwall.castShadow = false;
+    rwall.recieveShadow = false;
+    rwall.rotation.set(0, -Math.PI/2, 0);
+    rwall.position.z += 10;
+    rwall.position.x -= BOARD_SIDE_LENGTH / 2; 
+    rwall.material.side = THREE.BackSide;
+    scene.add(rwall);
+
+    // back wall
+    var bwallGeo = new THREE.PlaneGeometry(BOARD_SIDE_LENGTH, 20, 10);
+    var bwallMat = new THREE.MeshBasicMaterial({color: WALL_COLOR});
+    var bwall = new THREE.Mesh(bwallGeo, bwallMat);
+    bwall.castShadow = false;
+    bwall.recieveShadow = false;
+    bwall.rotation.set(Math.PI/2, 0, 0);
+    bwall.position.z += 10;
+    bwall.position.y += BOARD_SIDE_LENGTH; 
+    //bwall.material.side = THREE.BackSide;
+    scene.add(bwall);
+
+    // front wall
+    var fwall = new THREE.Mesh(bwallGeo, bwallMat);
+    fwall.castShadow = false;
+    fwall.recieveShadow = false;
+    fwall.rotation.set(-Math.PI/2, 0, 0);
+    fwall.position.z += 10;
+    fwall.position.y -= BOARD_SIDE_LENGTH; 
+    //bwall.material.side = THREE.BackSide;
+    scene.add(fwall);
+
 }
