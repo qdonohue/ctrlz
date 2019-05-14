@@ -24,6 +24,8 @@ class Player {
         this.totalBlockCount = 0;
         this.lastShot = NaN;
         this.shotSpeed = this.myWeapons[this.currentWeapon].recharge;
+        this.liveBlocks = 0;
+        this.gameStarted = false;
     }
 
     // init() {
@@ -67,13 +69,27 @@ class Player {
         this.myWeapons.push(pistol, uzi);
     }
 
+    checkBlocksLeftAlive() {
+        if (this.blockIndex === 0) gameOver(this.Player1);
+        for (var i = 0; i < this.blockIndex; i++) {
+            if (!this.blocks[i].destroyed()) {
+                return;
+            }
+        }
+        // otherwise all have been destroyed
+        gameOver(this.player1);
+    }
+
 
     checkBlocksVsTime() {
         var indexShouldBe = Math.floor(this.survivalTime / TIME_BETWEEN_BLOCK_PLACEMENT) + 15;
         var diff = indexShouldBe - this.blockIndex;
 
         if (diff > 0) {
-            if (indexShouldBe >= this.totalBlockCount) return;
+            if (indexShouldBe >= this.totalBlockCount) {
+                this.checkBlocksLeftAlive();
+                return;
+            }
             for (var i = 0; i < diff; i++) {
                 this.placeNextBlock();
             }
@@ -82,6 +98,7 @@ class Player {
                 this.removeBlock();
             }
         }
+        this.checkBlocksLeftAlive();
     }
 
     removeBlock() {
@@ -122,6 +139,7 @@ class Player {
         this.survivalTime -= change;
 
         if (undoAmount > this.positions.length) {
+            gameOver(this.player1);
             undoAmount = this.positions.length;
         }
 
@@ -133,8 +151,6 @@ class Player {
 
         var newX = footFall.x;
         var newY = footFall.y;
-
-        console.log("Going back " + undoAmount + " positions");
 
         this.place(newX, newY);
 
@@ -153,7 +169,6 @@ class Player {
 
         this.blocks[this.blockIndex].show();
         this.blockIndex++;
-
     }
 
     /**
@@ -252,7 +267,6 @@ class Player {
 
         if (position.x > min.x && position.x < max.x) {
             if (position.y > min.y && position.y < max.y) {
-                console.log("ouch");
                 this.goBack(Math.max(1, amount * 5));
                 return true;
             }

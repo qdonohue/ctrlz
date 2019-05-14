@@ -1,6 +1,20 @@
 function init() {
+    
     clock = new THREE.Clock();
     frameTime = 0;
+
+    blocks = []; // ALL blocks in scene, including turrets and cannons.
+    bullets = [];
+    cannons = [];
+    turrets = [];
+    players = []; // all players in scene
+    weapons = []; //all available weapons
+
+    currentBulletID = 0;
+
+    
+
+    GAME_OVER = false;
     
     Input.keyBoardInit();
     

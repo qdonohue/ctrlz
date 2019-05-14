@@ -4,6 +4,7 @@
 var scene, camera, clock, renderer, frameTime;
 var player1, player2;
 var temporal;
+
 var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
 var cannons = [];
@@ -11,7 +12,9 @@ var turrets = [];
 var players = []; // all players in scene
 var weapons = []; //all available weapons
 
-var currentBulletID = 0;
+var GAME_OVER;
+
+var currentBulletID;
 
 const BLOCK_COUNT = 100;
 const PLACABLE_COUNT = 65;
@@ -40,6 +43,7 @@ const TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
 const TIME_BETWEEN_SHOTS = 250;
 const TIME_BETWEEN_CANNON_SHOTS = 1000;
 const TIME_BETWEEN_TURRET_SHOTS = 1500;
+const TIME_GRACE_PERIOD = 5000;
 
 const BACKGROUND_COLOR = 0xA7A3A3;
 const BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
@@ -48,6 +52,8 @@ const TURRET_COLOR = [0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee, 0xff00ee
 const CANNON_COLOR = [0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505, 0x050505];
 
 const IS_PLAYER_1 = true;
+
+//var p1BlockOrder, p1BlockType, p2BlockOrder, p2BlockType;
 
 var p1BlockOrder = Array(BLOCK_COUNT).fill(NaN);
 var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
@@ -124,6 +130,7 @@ function updateViewPort(view) {
 function mainGame() {
 
     function animate() {
+        if (GAME_OVER) return;
         requestAnimationFrame(animate);
         temporal.update();
         updateBullets();

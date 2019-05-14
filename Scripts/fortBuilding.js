@@ -9,13 +9,29 @@ function updateBlockOrder(index, blockOrder, blockType, blockLocations) {
 }
 
 function updateBlockLabels(blockLocations) {
-    var selectedItems = $(".selected-grid-item");
-    selectedItems.each(function (){
+    var boxes = $(".box-selected");
+    boxes.each(function (){
+        var curID = $(this).attr('id');
+        var newNumber = blockLocations[curID];
+        $(this).html(newNumber);
+    });
+    
+    var turrets = $(".turret-selected");
+    turrets.each(function (){
+        var curID = $(this).attr('id');
+        var newNumber = blockLocations[curID];
+        $(this).html(newNumber);
+    });
+    
+    var cannons = $(".cannon-selected");
+    cannons.each(function (){
         var curID = $(this).attr('id');
         var newNumber = blockLocations[curID];
         $(this).html(newNumber);
     });
 }
+
+
 
 function fixUnselected(counterContainers, cur) {
     for (var i = 0; i < 3; i++) {
@@ -32,6 +48,7 @@ function updateCounterNumbers(placeable) {
 
 // p1 = boolean indicating whether or not it's player 1
 function buildBoard(blockOrder, blockType, p1) {
+    
     // variables we'll need
     var blockLocations = Array(BLOCK_COUNT).fill(NaN);
     var highestBlockIndex = 0;

@@ -7,6 +7,8 @@ class TemporalManagement {
         this.lastTrackedP = NaN;
         this.lastFiredCannon = NaN;
         this.lastFiredTurret = NaN;
+        this.started = false;
+        this.begun = false;
     }
 
     checkPosition() {
@@ -68,6 +70,15 @@ class TemporalManagement {
     update() {
         //this.checkBlockPlacement();
         this.checkPosition();
+        if (!this.started) {
+            this.startTime = new Date();
+            this.started = true;
+            return;
+        }
+
+        var curTime = new Date();
+        if (curTime - this.startTime < TIME_GRACE_PERIOD && !this.begun) return;
+        this.begun = true;
         this.checkCannons();
         this.checkTurrets();
     }
