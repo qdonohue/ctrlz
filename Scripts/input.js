@@ -85,8 +85,8 @@ class Input {
         }
 
         if (Input.keyState[Input.keys.debug]) {
-            players[0].goBack(5);
-            players[0].debug();
+            //players[0].goBack(5);
+            //players[0].debug();
         }
 
     }

@@ -18,14 +18,14 @@ var currentBulletID;
 
 const BLOCK_COUNT = 100;
 const PLACABLE_COUNT = 65;
-const FREE_BLOCKS_AT_START = 15;
+const FREE_BLOCKS_AT_START = 10;
 const BLOCK_PER_SIDE = 10;
 const BOARD_SIDE_LENGTH = 100;
 const BLOCK_SIZE = BOARD_SIDE_LENGTH / BLOCK_PER_SIDE;
 const OFFSET_FROM_ORIGIN = 50;
 const SPAWN_DISTANCE = (BOARD_SIDE_LENGTH + BLOCK_SIZE / 2);
 
-const BOX_SUPPLY = 50; // maybe too many?
+const BOX_SUPPLY = 20; // reduced to 20 from 50
 const TURRET_SUPPLY = 5;
 const CANNON_SUPPLY = 10;
 
@@ -123,6 +123,11 @@ $("#startButton").click(function () {
     //buildBoard(p1BlockOrder, p1BlockType, IS_PLAYER_1);
     selectControls(true);
 });
+
+$('#instructionButton').click(function () {
+    $('#startScreen').hide();
+    instructions();
+})
 
 /** Decrease bullet lifetime and dispose of bullets */
 function updateBullets() {
