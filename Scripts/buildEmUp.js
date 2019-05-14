@@ -61,6 +61,7 @@ function buildPlayerArray(given, type, p1) {
         } else if (curType == TURRET_TYPE) {
             var curBlock = new Turret(blockID, p1);
             curBlock.place(curPosition.x, curPosition.y);
+            turrets.push(curBlock);
             finished.push(curBlock);
         } else if (curType == CANNON_TYPE) {
             var curBlock = new Cannon(blockID, p1);

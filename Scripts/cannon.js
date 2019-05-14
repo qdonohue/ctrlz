@@ -9,6 +9,7 @@ class Cannon {
         this.init();
         this.lastCollision = NaN;
         this.hasBeenDestroyed = false;
+        this.hidden = true;
         if (p1) {
             this.direction = new THREE.Vector3(0, -1, 0);
             this.owner = player1;
@@ -36,16 +37,9 @@ class Cannon {
 
     // Spawns a (larger) bullet
     shoot() {
-        if (this.lastShot !== NaN) {
-            var curTime = new Date();
-            var ellapsed = curTime - this.lastShot;
-
-            if (ellapsed < TIME_BETWEEN_SHOTS) return;
-
-        }
-        this.lastShot = new Date();
-        var id = bullets.length
-        var bullet = new Bullet(id, 10);
+        if (this.hasBeenDestroyed) return;
+        if (this.hidden) return;
+        var bullet = new Bullet(10);
         var acc = 1.0; // 100%?
         var newPosition = this.cube.position.clone()
         newPosition.add(this.direction.clone().multiplyScalar(5.0));
@@ -67,11 +61,13 @@ class Cannon {
 
     show() {
         if (this.hasBeenDestroyed) return;
+        this.hidden = false;
         this.addToScene();
         blocks.push(this);
     }
 
     remove() {
+        this.hidden = true;
         scene.remove(this.cube);
         removeFromBlocks(this);
     }

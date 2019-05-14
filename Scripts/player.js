@@ -231,8 +231,7 @@ class Player {
 
         }
         this.lastShot = new Date();
-        var id = bullets.length
-        var bullet = new Bullet(id, 2);
+        var bullet = new Bullet(2);
         var acc = 1.0; // 100%?
         var newPosition = this.position.clone()
         newPosition.addScaledVector(this.facingVector.clone(), 2);

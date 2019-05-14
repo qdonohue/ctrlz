@@ -1,6 +1,7 @@
 class Bullet { // eslint-disable-line no-unused-vars
-	constructor(id, size) {
-		this.id = id;
+	constructor(size) {
+		this.id = currentBulletID;
+		currentBulletID++;
 		let radius = size/10.0;
 		this.Geometry = new THREE.CylinderBufferGeometry(radius, radius, 4, 5, 1);
 		this.Material = new THREE.MeshBasicMaterial();
@@ -8,7 +9,6 @@ class Bullet { // eslint-disable-line no-unused-vars
 		this.isAlive = false;
 		this.direction = null;
 		this.speed = 1.8;
-		this.destructionPoint = null;
 		this.damage = 1;
 	}
 
@@ -44,14 +44,6 @@ class Bullet { // eslint-disable-line no-unused-vars
 
 	setDamage(damage) {
 		this.damage = damage;
-	}
-
-	/**
-	 * Set the position where the bullet should be destroyed
-	 * @param {THREE.Vector3} point
-	 */
-	setDestructionPoint(point) {
-		this.destructionPoint = point;
 	}
 
 	/**

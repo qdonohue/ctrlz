@@ -5,7 +5,8 @@ class TemporalManagement {
     constructor(players) {
         this.players = players;
         this.lastTrackedP = NaN;
-        this.lastTrackedB = NaN;
+        this.lastFiredCannon = NaN;
+        this.lastFiredTurret = NaN;
     }
 
     checkPosition() {
@@ -28,28 +29,48 @@ class TemporalManagement {
         this.lastTrackedP = curTime;
     }
 
-    checkBlockPlacement() {
+    checkCannons() {
         var curTime = new Date();
+        if (this.lastFiredCannon !== NaN) {
+            var ellapsed = curTime - this.lastFiredCannon;
 
-        if (this.lastTrackedB !== NaN) {
-            var ellapsedB = curTime - this.lastTrackedB;
+            if (ellapsed < TIME_BETWEEN_CANNON_SHOTS) return;
 
-            if (ellapsedB < TIME_BETWEEN_BLOCK_PLACEMENT) {
-                return;
+            console.log("Time to fire a cannon!");
+
+            for (var i = 0; i < cannons.length; i++) {
+                cannons[i].shoot();
             }
 
-            for (var i = 0; i < this.players.length; i++) {
-                this.players[i].placeNextBlock();
-            }
-            
-            this.lastTrackedB = curTime;
+            this.lastFiredCannon = curTime;
             return;
         }
-        this.lastTrackedB = curTime;
+        this.lastFiredCannon = curTime;
     }
+
+    checkTurrets() {
+        var curTime = new Date();
+        if (this.lastFiredTurret !== NaN) {
+            var ellapsed = curTime - this.lastFiredTurret;
+
+            if (ellapsed < TIME_BETWEEN_TURRET_SHOTS) return;
+
+            for (var i = 0; i < turrets.length; i++) {
+                turrets[i].shoot();
+            }
+
+            this.lastFiredTurret = curTime;
+            return;
+        }
+        this.lastFiredTurret = curTime;
+    }
+
+    
 
     update() {
         //this.checkBlockPlacement();
         this.checkPosition();
+        this.checkCannons();
+        this.checkTurrets();
     }
 }

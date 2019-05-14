@@ -7,8 +7,11 @@ var temporal;
 var blocks = []; // ALL blocks in scene, including turrets and cannons.
 var bullets = [];
 var cannons = [];
+var turrets = [];
 var players = []; // all players in scene
 var weapons = []; //all available weapons
+
+var currentBulletID = 0;
 
 const BLOCK_COUNT = 100;
 const PLACABLE_COUNT = 65;
@@ -33,6 +36,8 @@ const TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they cou
 const TIME_BETWEEN_POSITIONS = 1000;
 const TIME_BETWEEN_BLOCK_PLACEMENT = 7000;
 const TIME_BETWEEN_SHOTS = 250;
+const TIME_BETWEEN_CANNON_SHOTS = 1000;
+const TIME_BETWEEN_TURRET_SHOTS = 1500;
 
 const BACKGROUND_COLOR = 0xA7A3A3;
 const BLOCK_COLOR = [0x545331, 0x66643b, 0x827f4a, 0x9b9758, 0xafab62, 0xaf9262, 0xaf7f62, 0xb73d28, 0xd13014, 0xc92104];
@@ -108,13 +113,6 @@ function updateBullets() {
     bullets[i].update();
 }
 
-function shootCannons() {
-  //console.log(cannons.length);
-  for (i=0; i < cannons.length; i++)
-    cannons[i].shoot();
-}
-
-
 function updateViewPort(view) {
     updateView(view.camera, view.left, view.bottom, view.width, view.height);
     renderer.render(scene, view.camera);
@@ -126,7 +124,6 @@ function mainGame() {
     function animate() {
         requestAnimationFrame(animate);
         temporal.update();
-        shootCannons();
         updateBullets();
         Input.resolveInput(players);
         updateViewPort(p1View);
