@@ -12,7 +12,6 @@ function init() {
 
     currentBulletID = 0;
 
-    
 
     GAME_OVER = false;
     
