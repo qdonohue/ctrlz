@@ -120,7 +120,8 @@ if (DEBUG) {
 // (buildBoard then calls the mainGame loop itself)
 $("#startButton").click(function () {
     $("#startScreen").hide();
-    buildBoard(p1BlockOrder, p1BlockType, IS_PLAYER_1);
+    //buildBoard(p1BlockOrder, p1BlockType, IS_PLAYER_1);
+    selectControls(true);
 });
 
 /** Decrease bullet lifetime and dispose of bullets */

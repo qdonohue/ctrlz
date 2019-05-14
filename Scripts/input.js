@@ -1,7 +1,7 @@
 // Heavily inspired by keyboard input from: https://github.com/juanferrer/red-palito
 // Modified for two players / changed control scheme --> but methodology is the same
+var lastKey;
 class Input {
-
     // track what keys are pressed
     static keyBoardInit() {
         window.addEventListener("keydown", e => {
@@ -19,8 +19,12 @@ class Input {
 
     static keyup(keyCode) {
         Input.keyState[keyCode] = false;
+        lastKey = keyCode;
     }
 
+    static setKey(controlName) {
+        Input.keys.controlName = lastKey;
+    }
     // get keys pressed since last frame
     static resolveInput(players) {
 
@@ -96,7 +100,8 @@ Input.keys = {
     "right": 68,
     "debug": 16, // this is shift
     "shoot": 32, // this is space
-    "switch": 80, // this is p
+    "switch": 84, // this is p
+    "switch2": 80, // this is t
     "forward2": 73, // i
     "backwards2": 75, // k
     "left2": 74, // j
