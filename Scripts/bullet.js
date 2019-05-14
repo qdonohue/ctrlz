@@ -1,5 +1,5 @@
 class Bullet { // eslint-disable-line no-unused-vars
-	constructor(size) {
+	constructor(size, p1) {
 		this.id = currentBulletID;
 		currentBulletID++;
 		let radius = size/10.0;
@@ -10,6 +10,8 @@ class Bullet { // eslint-disable-line no-unused-vars
 		this.direction = null;
 		this.speed = 1.8;
 		this.damage = 1;
+		this.p1 = p1;
+		this.owner = player1; // by default in case something goes wonky
 	}
 
 	/**
@@ -46,6 +48,10 @@ class Bullet { // eslint-disable-line no-unused-vars
 		this.damage = damage;
 	}
 
+	setColor(value) {
+		this.Mesh.material.color.setHex(value);
+	}
+
 	/**
      * Orient bullet towards target
      * @param {number} acc Shot accuracy
@@ -61,37 +67,12 @@ class Bullet { // eslint-disable-line no-unused-vars
 	// Calulate new position and check for collisions
 	update() {
 			this.position.add(this.direction.multiplyScalar(this.speed));
-			if (bulletCollision(this.position, this.damage) ||
-			this.position.distanceTo(player1.position) > 300.0) { //TODO: Change to non-arbitrary pos
+			if (bulletCollision(this.position, this.damage, this.p1) ||
+			this.position.distanceTo(this.owner.position) > 300.0) { //TODO: Change to non-arbitrary pos
 				removeFromArray(this, bullets);
 				scene.remove(this.Mesh);
 			}
 
-	}
-
-	/**
-     * Prepare bullet for specific weapon
-     * @param {number} weaponIndex Index of weapon to prepare bullet for
-     */
-	prepareForWeapon(weaponIndex) {
-		switch (weaponIndex) {
-			case 0: // Pistol
-				this.Mesh.scale.y = 1;
-				this.Material.color.setHex(0xFFFFFF);
-				break;
-			case 1: // Uzi
-				this.Mesh.scale.y = 1;
-				this.Material.color.setHex(0xFFFFFF);
-				break;
-			case 2: // Shotgun
-				this.Mesh.scale.y = 1;
-				this.Material.color.setHex(0xFFFFFF);
-				break;
-			case 3: // Laser
-				this.Mesh.scale.y = 10;
-				this.Material.color.setHex(0x0000FF);
-				break;
-		}
 	}
 
 

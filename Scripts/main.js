@@ -31,6 +31,8 @@ const TURRET_TYPE = 1;
 const CANNON_TYPE = 2;
 
 const PLAYER_COLLISION_DAMAGE = 1;
+const CANNON_DAMAGE = 2;
+const TURRET_DAMAGE = 5;
 
 const TIME_BETWEEN_DAMAGE = 1000; // how long between collisions should they count?
 const TIME_BETWEEN_POSITIONS = 1000;

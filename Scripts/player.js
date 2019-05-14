@@ -14,6 +14,7 @@ class Player {
         this.survivalTime = 0;
         this.myWeapons = [];
         this.currentWeapon = 0;
+        this.lastSwapped = NaN;
         this.init();
         if (p1) {
             this.face(0, -Number.MAX_SAFE_INTEGER);
@@ -64,8 +65,6 @@ class Player {
         var pistol = new Weapon("pistol", 2, 1000, 0.8);
         var uzi = new Weapon("uzi", 1, 150, 0.2);
         this.myWeapons.push(pistol, uzi);
-        console.log(this.myWeapons.length);
-
     }
 
 
@@ -231,22 +230,29 @@ class Player {
 
         }
         this.lastShot = new Date();
-        var bullet = new Bullet(2);
+        var bullet = new Bullet(2, this.player1);
         var acc = 1.0; // 100%?
-        var newPosition = this.position.clone()
+        bullet.setDamage(this.myWeapons[this.currentWeapon].getDamage());
+        var newPosition = this.position.clone();
         newPosition.addScaledVector(this.facingVector.clone(), 2);
         bullet.spawn(this, newPosition, this.facingVector, acc);
         bullets.push(bullet);
     }
 
     switchWeapon() {
+        if (this.lastSwapped !== NaN) {
+            var curTime = new Date();
+            var ellapsed = curTime - this.lastSwapped;
+
+            if (ellapsed < TIME_BETWEEN_WEAPON_SWAPS) return;
+        }
+        this.lastSwapped = new Date();
 
         this.currentWeapon = this.currentWeapon < this.myWeapons.length - 1 ? this.currentWeapon + 1 : 0;
         this.shotSpeed = this.myWeapons[this.currentWeapon].recharge;
-        console.log("Switched weapon to: " + this.myWeapons[this.currentWeapon].name);
     }
 
-    collision(position, amount, gun) {
+    collision(position, amount) {
         var bbox = this.Mesh.geometry.boundingBox.clone();
         var min = bbox.min.add(this.Mesh.position);
         var max = bbox.max.add(this.Mesh.position);
@@ -264,7 +270,6 @@ class Player {
     // Not sure if we actually want Health, or if we're just going to goBack
     // Don't need gun variable, since player is only gonna be sent back by guns
     damage(amount) {
-      console.log("Hit detected!");
       this.goBack(amount);
     }
 

@@ -54,8 +54,9 @@ function buildPlayerArray(given, type, p1) {
         } else {
             var curPosition = getPositionP2(blockID);
         }
+        if (!p1) blockID += 100; // for collision purposes
         if (curType == BOX_TYPE) {
-            var curBlock = new Box(blockID);
+            var curBlock = new Box(blockID, p1);
             curBlock.place(curPosition.x, curPosition.y);
             finished.push(curBlock);
         } else if (curType == TURRET_TYPE) {
