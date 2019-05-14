@@ -10,16 +10,18 @@ class Turret {
         this.lastCollision = NaN;
         this.hasBeenDestroyed = false;
         if (p1) {
-            this.target = players[0]; // gonna need to change this
+            this.owner = player1;
+            this.target = player2;
         } else {
-            this.target = players[1]; // doesn't exist now, will probably complain...
+            this.owner = player2;
+            this.target = player1;
         }
     }
 
     init() {
         // ideally modify this too. But modification of the geometry
         // means WE MUST modify the collision code - otherwise it won't work...
-        // I think the position of the block is at the center, so it's +- 5 to 
+        // I think the position of the block is at the center, so it's +- 5 to
         // the edges if we wanna manually compute the bounding box off that
         // (min.x = position.x - 5), (max.x = position.x + 5, etc)
         var sideLength = BLOCK_SIZE;
@@ -32,13 +34,25 @@ class Turret {
         this.cube.recieveShadow = true;
     }
 
+    // Spawns a (targeted) bullet
     shoot() {
-        // CODY: Your code goes here. Should spawn a bullet and shoot it at target
-        // Maybe raycast from here to target to see if we can hit? If not, 
-        // either we just damage blocks in our way, or enhance bullet to add
-        // in an owner so we can check if it should damage a given block
-        // Probably can just spawn the bullet from above it?
+        if (this.lastShot !== NaN) {
+            var curTime = new Date();
+            var ellapsed = curTime - this.lastShot;
 
+            if (ellapsed < TIME_BETWEEN_SHOTS) return;
+
+        }
+        this.lastShot = new Date();
+        var id = bullets.length
+        var bullet = new Bullet(id, 10);
+        var acc = 1.0; // 100%?
+        var newPosition = this.cube.position.clone()
+        var targetVector = new THREE.Vector3();
+        targetVector.subVectors(this.target.position, newPosition.clone()).normalize();
+        newPosition.add(targetVector.clone().multiplyScalar(5.0));
+        bullet.spawn(this.owner, newPosition, targetVector, acc);
+        bullets.push(bullet);
     }
 
     getID() {
@@ -83,6 +97,7 @@ class Turret {
         if (this.health - amount <= 0) {
             this.hasBeenDestroyed = true;
             removeFromArray(this, blocks); // take out of collision calculations
+            removeFromArray(this, turrets);
             scene.remove(this.cube); // take out of scene
         }
 
@@ -91,7 +106,7 @@ class Turret {
 
         // change color
         var newColor = TURRET_COLOR[curColor];
-        
+
         this.cube.material.color.setHex(newColor);
     }
 
