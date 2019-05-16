@@ -1,3 +1,4 @@
+// Pave the way for future updates such as weapon spawns/ammo
 class Weapon {
     constructor(name, damage, recharge, accuracy) {
         this.name = name;

@@ -13,7 +13,7 @@ class Box {
         var sideLength = BLOCK_SIZE;
         this.geometry = new THREE.BoxGeometry( sideLength, sideLength, sideLength);
         this.geometry.computeBoundingBox();
-        this.material = new THREE.MeshLambertMaterial( {color: BLOCK_COLOR[0]} );
+        this.material = new THREE.MeshStandardMaterial( {color: BLOCK_COLOR[0]} );
         this.cube = new THREE.Mesh( this.geometry, this.material );
         this.cube.position.add(new THREE.Vector3(0, 0, sideLength / 2));
         this.cube.castShadow = true;

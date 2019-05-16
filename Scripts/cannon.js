@@ -1,5 +1,4 @@
 // Cannon Object - shoots always in one direction
-
 class Cannon {
 
     // p1 is true or false saying if it was placed by p1
@@ -22,11 +21,8 @@ class Cannon {
     }
 
     init() {
-        // ideally modify this too. But modification of the geometry
-        // means WE MUST modify the collision code - otherwise it won't work...
-        // I think the position of the block is at the center, so it's +- 5 to
-        // the edges if we wanna manually compute the bounding box off that
-        // (min.x = position.x - 5), (max.x = position.x + 5, etc)
+        // Modification of the geometry means WE MUST modify the collision code - 
+		// otherwise it won't work...
         var sideLength = BLOCK_SIZE;
         this.geometry = new THREE.BoxGeometry( sideLength, sideLength, sideLength);
         this.geometry.computeBoundingBox();
@@ -46,7 +42,7 @@ class Cannon {
         if (this.hasBeenDestroyed) return;
         if (this.hidden) return;
         var bullet = new Bullet(10, this.p1);
-        var acc = 1.0; // 100%?
+        var acc = 1.0;
         bullet.setColor(0x777777);
         bullet.setDamage(this.damage);
         var newPosition = this.cube.position.clone()
@@ -100,7 +96,7 @@ class Cannon {
             this.hasBeenDestroyed = true;
             removeFromArray(this, blocks);
             removeFromArray(this, cannons);
-            scene.remove(this.cube); // take out of scene
+            scene.remove(this.cube);
         }
 
         this.health -= amount;
@@ -128,6 +124,5 @@ class Cannon {
 
         return false;
     }
-
 
 }

@@ -93,6 +93,7 @@ function selectControls(p1) {
     // DOWN CONTROLS
     var downContainer = document.createElement('div');
     downContainer.className = "control-div";
+	
     // down text
     var downText = document.createElement('div');
     downText.innerHTML = "Down: ";
@@ -138,6 +139,7 @@ function selectControls(p1) {
     // LEFT CONTROLS
     var leftContainer = document.createElement('div');
     leftContainer.className = "control-div";
+	
     // left text
     var leftText = document.createElement('div');
     leftText.innerHTML = "Left: ";
@@ -229,6 +231,7 @@ function selectControls(p1) {
     // SHOOT CONTROLS
     var shootContainer = document.createElement('div');
     shootContainer.className = "control-div";
+	
     // shoot text
     var shootText = document.createElement('div');
     shootText.innerHTML = "Shoot: ";

@@ -1,5 +1,5 @@
-// Helper class that will check when to update player position locations
 
+// Helper class that will check when to update player position locations
 class TemporalManagement {
 
     constructor(players) {
@@ -10,7 +10,7 @@ class TemporalManagement {
         this.started = false;
         this.begun = false;
     }
-
+	
     checkPosition() {
         var curTime = new Date();
 
@@ -68,7 +68,6 @@ class TemporalManagement {
     
 
     update() {
-        //this.checkBlockPlacement();
         this.checkPosition();
         if (!this.started) {
             this.startTime = new Date();

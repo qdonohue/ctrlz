@@ -22,7 +22,6 @@ function init() {
 
     // camera setup
     camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
-    // camera.position.set(0, 15, -40); //default
     camera.position.set(-2, 20, -50); // horizontal
     p1View.camera = camera;
 
@@ -119,14 +118,12 @@ function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x0, 1);
-
-    // axis helper to see whats going on
-    /* var axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper); */
+	
+	// shadows... how do they work??
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
 
     document.body.appendChild(renderer.domElement);
-
-    //platform.translateY(2.5);
 
     renderer.render(scene, camera);
 }
@@ -164,7 +161,6 @@ function addWalls() {
     bwall.rotation.set(Math.PI/2, 0, 0);
     bwall.position.z += 10;
     bwall.position.y += BOARD_SIDE_LENGTH;
-    //bwall.material.side = THREE.BackSide;
     scene.add(bwall);
 
     // front wall
@@ -174,7 +170,6 @@ function addWalls() {
     fwall.rotation.set(-Math.PI/2, 0, 0);
     fwall.position.z += 10;
     fwall.position.y -= BOARD_SIDE_LENGTH;
-    //bwall.material.side = THREE.BackSide;
     scene.add(fwall);
 
 }

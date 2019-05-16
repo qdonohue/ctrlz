@@ -28,16 +28,6 @@ class Player {
         this.gameStarted = false;
     }
 
-    // init() {
-    //     this.geometry = new THREE.BoxGeometry( 1, 3, 1);
-    //     this.material = new THREE.MeshLambertMaterial( { color: 0x00b21d } );
-    //     this.Mesh = new THREE.Mesh(this.geometry, this.material);
-    //     this.Mesh.lookAt(0, -1, 0);
-    //     this.Mesh.position.add(new THREE.Vector3(0, 0, 3));
-    //     this.Mesh.castShadow = true;
-    //     this.Mesh.recieveShadow = true;
-    // }
-
     init() {
 
         // legs
@@ -171,22 +161,15 @@ class Player {
         this.blockIndex++;
     }
 
-    /**
-     * Get the position of the model
-     * @returns {THREE.Vector3}
-     */
+    // current player position
 	get position() {
 		return this.Mesh.position;
 	}
 
-	/**
-     * Gets the facing vector of the model. A.K.A. Forward
-     * @returns {THREE.Vector3}
-     */
+	// direction the player is facing
 	get facingVector() {
 		let matrix = new THREE.Matrix4();
 		matrix.extractRotation(this.Mesh.matrix);
-
 		let direction = new THREE.Vector3(0, 0, 1);
 		return direction.applyMatrix4(matrix).normalize();
     }
@@ -218,12 +201,14 @@ class Player {
         if (illegalMove(newPosition, PLAYER_COLLISION_DAMAGE)) return;
         this.Mesh.position.set(newPosition.x, newPosition.y, newPosition.z);
     }
-
+	
+	// replace with strafe right?
     rotateRight() {
         this.Mesh.rotateY(-this.ROTATION_SPEED * frameTime);
         this.angleRotated += this.ROTATION_SPEED * frameTime;
     }
-
+	
+	// replace with strafe left?
     rotateLeft() {
         this.Mesh.rotateY(this.ROTATION_SPEED * frameTime);
         this.angleRotated -= this.ROTATION_SPEED * frameTime;
@@ -239,7 +224,7 @@ class Player {
         }
         this.lastShot = new Date();
         var bullet = new Bullet(2, this.player1);
-        var acc = 1.0; // 100%?
+        var acc = 1.0;
         bullet.setDamage(this.myWeapons[this.currentWeapon].getDamage());
         var newPosition = this.position.clone();
         newPosition.addScaledVector(this.facingVector.clone(), 2);

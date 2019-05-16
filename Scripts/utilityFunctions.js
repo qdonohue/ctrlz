@@ -1,7 +1,6 @@
-// Code Pulled From Becky Barber's coloring project:
+// Code Pulled From Becky Barber's coloRing project:
 // https://beckybarber18.github.io/coloring/
-// B/c I was unsure how to make 3 JS play nice with multiple viewports
-// and couldn't find adequate documentation
+// Had difficulty making multiple viewports work with available documentation
 function updateView(camera, l, b, w, h) {
     const left = Math.floor( window.innerWidth * l );
     const bottom = Math.floor( window.innerHeight * b );

@@ -1,5 +1,6 @@
 
-
+// Teach players how to play the game!
+// Fort building has a few quirks
 function instructions() {
 
     var instructionParent = document.createElement('div');

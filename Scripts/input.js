@@ -25,7 +25,7 @@ class Input {
     static setKey(controlName) {
         Input.keys.controlName = lastKey;
     }
-    // get keys pressed since last frame
+    // default controls
     static resolveInput(players) {
 
         // left (a)
@@ -45,7 +45,7 @@ class Input {
         }
         // right player 2 (l)
         if (Input.keyState[Input.keys.right2]) {
-            // handle player go left
+            // handle player go right
             players[1].rotateRight();
         }
         // forward (w)

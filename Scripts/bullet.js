@@ -1,4 +1,4 @@
-class Bullet { // eslint-disable-line no-unused-vars
+class Bullet { 
 	constructor(size, p1) {
 		this.id = currentBulletID;
 		currentBulletID++;
@@ -14,10 +14,6 @@ class Bullet { // eslint-disable-line no-unused-vars
 		this.owner = player1; // by default in case something goes wonky
 	}
 
-	/**
-	 * Gets the position of
-	 * @returns {THREE.Vector3}
-	 */
 	get position() {
 		return this.Mesh.position;
 	}
@@ -26,13 +22,6 @@ class Bullet { // eslint-disable-line no-unused-vars
 			return this.id;
 	}
 
-	/**
-     * Prepare a bullet and place it in the right position
-     * @param {THREE.Vector3} pos Spawning position
-     * @param {THREE.Vector3} dir Facing direction of bullet
-     * @param {number} acc Shot accuracy
-	 * @param {number} sp Speed of bullet
-     */
 	spawn(player, pos, dir, acc, sp = 1.0, damage = 1.0) {
 		this.owner = player;
 		scene.add(this.Mesh);
@@ -52,10 +41,6 @@ class Bullet { // eslint-disable-line no-unused-vars
 		this.Mesh.material.color.setHex(value);
 	}
 
-	/**
-     * Orient bullet towards target
-     * @param {number} acc Shot accuracy
-     */
 	orient(acc) {
 		const randX = Math.max((Math.random() - acc) / 20, 0);
 		const randZ = Math.max((Math.random() - acc) / 20, 0);
@@ -66,36 +51,12 @@ class Bullet { // eslint-disable-line no-unused-vars
 
 	// Calulate new position and check for collisions
 	update() {
-			this.position.add(this.direction.multiplyScalar(this.speed));
-			if (bulletCollision(this.position, this.damage, this.p1) ||
-			this.position.distanceTo(this.owner.position) > 300.0) { //TODO: Change to non-arbitrary pos
-				removeFromArray(this, bullets);
-				scene.remove(this.Mesh);
-			}
-
+		this.position.add(this.direction.multiplyScalar(this.speed));
+		if (bulletCollision(this.position, this.damage, this.p1) ||
+		this.position.distanceTo(this.owner.position) > 300.0) { //TODO: Change to non-arbitrary pos
+			// dispose?
+			removeFromArray(this, bullets);
+			scene.remove(this.Mesh);
+		}
 	}
-
-
-	/** Set bullet to its initial state */
-	reset() {
-		this.Material.color.setHex(0x0);
-		this.Mesh.scale.y = 1;
-		this.isAlive = false;
-		this.direction = null;
-		this.position.set(0, this.initialYPos, 0);
-		this.destructionPoint = undefined;
-	}
-
-	/**
-     * Gets the Z vector of the model. A.K.A. Forward
-     * @returns {THREE.Vector3}
-     */
-	get frontVector() {
-		let matrix = new THREE.Matrix4();
-		matrix.extractRotation(this.Mesh.matrix);
-
-		let dir = new THREE.Vector3(0, 0, 1);
-		return dir.applyMatrix4(matrix).normalize();
-	}
-
 }

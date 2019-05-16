@@ -58,7 +58,7 @@ function buildBoard(blockOrder, blockType, p1) {
     var counterClassNames = ["box-selected", "turret-selected", "cannon-selected"];
     var counterContainers = [];
 
-    // What's gonna hold all our shit
+    // What's gonna hold all our stuff
     var topLevel = document.createElement('div');
     topLevel.id = "build_main";
 

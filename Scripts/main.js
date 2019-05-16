@@ -60,8 +60,6 @@ const MAX_Y = BOARD_SIDE_LENGTH + BLOCK_SIZE;
 
 const IS_PLAYER_1 = true;
 
-//var p1BlockOrder, p1BlockType, p2BlockOrder, p2BlockType;
-
 var p1BlockOrder = Array(BLOCK_COUNT).fill(NaN);
 var p1BlockType = Array(BLOCK_COUNT).fill(NaN); // denote what type of block
 var p2BlockOrder = Array(BLOCK_COUNT).fill(NaN);
@@ -84,23 +82,6 @@ var p2View = {
     height: .5
 };
 
-// VERTICAL
-/* var p1View = {
-    camera: undefined,
-    left: 0,
-    bottom: 0,
-    width: .5,
-    height: 1.0
-};
-
-var p2View = {
-    camera: undefined,
-    left: .5,
-    bottom: 0,
-    width: 1,
-    height: 1.0
-}; */
-
 var DEBUG = false;
 
 if (DEBUG) {
@@ -114,13 +95,11 @@ if (DEBUG) {
     mainGame();
 }
 
-//$('#gameCanvas').append(renderer.domElement);
 
 // When start button is clicked on, will transition to buildBoard stage
 // (buildBoard then calls the mainGame loop itself)
 $("#startButton").click(function () {
     $("#startScreen").hide();
-    //buildBoard(p1BlockOrder, p1BlockType, IS_PLAYER_1);
     selectControls(true);
 });
 
@@ -129,9 +108,8 @@ $('#instructionButton').click(function () {
     instructions();
 })
 
-/** Decrease bullet lifetime and dispose of bullets */
+// update every bullet in the scene
 function updateBullets() {
-  //console.log(bullets.length);
   for (i=0; i < bullets.length; i++)
     bullets[i].update();
 }
@@ -152,7 +130,6 @@ function mainGame() {
         Input.resolveInput(players);
         updateViewPort(p1View);
         updateViewPort(p2View);
-        //renderer.render(scene, camera);
         frameTime = clock.getDelta();
     }
 
@@ -166,7 +143,6 @@ function mainGame() {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
-
 
     animate();
 

@@ -20,11 +20,8 @@ class Turret {
     }
 
     init() {
-        // ideally modify this too. But modification of the geometry
-        // means WE MUST modify the collision code - otherwise it won't work...
-        // I think the position of the block is at the center, so it's +- 5 to
-        // the edges if we wanna manually compute the bounding box off that
-        // (min.x = position.x - 5), (max.x = position.x + 5, etc)
+        // Modification of the geometry means WE MUST modify the collision code - 
+		// otherwise it won't work...
         var sideLength = BLOCK_SIZE;
         this.geometry = new THREE.BoxGeometry( sideLength, sideLength, sideLength);
         this.geometry.computeBoundingBox();
@@ -51,7 +48,7 @@ class Turret {
         this.lastShot = new Date();
         var bullet = new Bullet(5, this.p1);
         bullet.setDamage(TURRET_DAMAGE);
-        var acc = 1.0; // 100%?
+        var acc = 1.0;
         var newPosition = this.cube.position.clone()
         var targetVector = new THREE.Vector3();
         targetVector.subVectors(this.target.position, newPosition.clone()).normalize();
@@ -111,7 +108,6 @@ class Turret {
 
         // change color
         var newColor = TURRET_COLOR[curColor];
-
         this.cube.material.color.setHex(newColor);
     }
 
@@ -130,6 +126,5 @@ class Turret {
 
         return false;
     }
-
 
 }

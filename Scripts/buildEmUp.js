@@ -1,5 +1,4 @@
 
-
 // get X, Y coordinates of a box in player 2's coordinate system
 function getPositionP2(number) {
     var x, y;
