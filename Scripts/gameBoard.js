@@ -1,5 +1,5 @@
 function init() {
-    
+
     clock = new THREE.Clock();
     frameTime = 0;
 
@@ -14,9 +14,9 @@ function init() {
 
 
     GAME_OVER = false;
-    
+
     Input.keyBoardInit();
-    
+
     scene = new THREE.Scene();
     scene.background = new THREE.Color(BACKGROUND_COLOR);
 
@@ -25,14 +25,14 @@ function init() {
     // camera.position.set(0, 15, -40); //default
     camera.position.set(-2, 20, -50); // horizontal
     p1View.camera = camera;
-    
+
     camera2 = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, .1, 1000);
     camera2.position.set(-2, 20, -50); // horizontal
     p2View.camera = camera2;
 
     // Add game board
     var platformGeo = new THREE.PlaneGeometry(BOARD_SIDE_LENGTH, 2 * BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH);
-    var platformMaterial = new THREE.MeshBasicMaterial( {color: 0x750000});
+    var platformMaterial = new THREE.MeshStandardMaterial( {color: 0x750000});
     var platform = new THREE.Mesh(platformGeo, platformMaterial);
     platform.castShadow = false;
     platform.recieveShadow = true;
@@ -100,7 +100,7 @@ function init() {
     temporal = new TemporalManagement(players);
 
     // add lights
-    const LIGHT_INTENSITY = 2,
+    const LIGHT_INTENSITY = 1,
         LIGHT_COLOR = 0xffffff;
     var ambientLight = new THREE.AmbientLight(LIGHT_COLOR, .1);
     scene.add(ambientLight);
@@ -108,12 +108,12 @@ function init() {
     var light = new THREE.PointLight(LIGHT_COLOR, LIGHT_INTENSITY);
     light.castShadow = true;
     scene.add(light);
-    light.position.set(0, 40, 20);
+    light.position.set(0, 200, 300);
 
     var light = new THREE.PointLight(LIGHT_COLOR, LIGHT_INTENSITY);
     light.castShadow = true;
     scene.add(light);
-    light.position.set(0, -40, 20);
+    light.position.set(0, -200, 300);
 
     // get renderer going
     renderer = new THREE.WebGLRenderer();
@@ -132,7 +132,7 @@ function init() {
 }
 
 function addWalls() {
-    
+
     // add left wall
     var lwallGeo = new THREE.PlaneGeometry(20, 2 * BOARD_SIDE_LENGTH, 10);
     var lwallMat = new THREE.MeshBasicMaterial({color: WALL_COLOR});
@@ -141,7 +141,7 @@ function addWalls() {
     lwall.recieveShadow = false;
     lwall.rotation.set(0, Math.PI/2, 0);
     lwall.position.z += 10;
-    lwall.position.x += BOARD_SIDE_LENGTH / 2; 
+    lwall.position.x += BOARD_SIDE_LENGTH / 2;
     lwall.material.side = THREE.BackSide;
     scene.add(lwall);
 
@@ -151,7 +151,7 @@ function addWalls() {
     rwall.recieveShadow = false;
     rwall.rotation.set(0, -Math.PI/2, 0);
     rwall.position.z += 10;
-    rwall.position.x -= BOARD_SIDE_LENGTH / 2; 
+    rwall.position.x -= BOARD_SIDE_LENGTH / 2;
     rwall.material.side = THREE.BackSide;
     scene.add(rwall);
 
@@ -163,7 +163,7 @@ function addWalls() {
     bwall.recieveShadow = false;
     bwall.rotation.set(Math.PI/2, 0, 0);
     bwall.position.z += 10;
-    bwall.position.y += BOARD_SIDE_LENGTH; 
+    bwall.position.y += BOARD_SIDE_LENGTH;
     //bwall.material.side = THREE.BackSide;
     scene.add(bwall);
 
@@ -173,7 +173,7 @@ function addWalls() {
     fwall.recieveShadow = false;
     fwall.rotation.set(-Math.PI/2, 0, 0);
     fwall.position.z += 10;
-    fwall.position.y -= BOARD_SIDE_LENGTH; 
+    fwall.position.y -= BOARD_SIDE_LENGTH;
     //bwall.material.side = THREE.BackSide;
     scene.add(fwall);
 
