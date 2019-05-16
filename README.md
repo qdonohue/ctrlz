@@ -1,23 +1,15 @@
-# ctrlz
-Game developed for COS 426 class. 
-
-Starting point for THREE.js work is from: 
-http://buildnewgames.com/webgl-threejs/
-https://aerotwist.com/tutorials/getting-started-with-three-js/ 
-
-Priorities:
-
--Get basic scene working (render something in 3 js)
--Get camera and movement working following dummy character
--Get split screen working
--Develop art assets (Victor is working on it)
--Develop shooting mechanics
--Building mechanics
--AI?
-
-# Ctrlz
+# CTRL-Z
 
 Game developed for COS 426 class.
+
+# Initial Concept:
+
+-Get camera and movement working follow character
+-Two player split screen
+-Block-like art assets
+-Shooting mechanics
+-Building mechanics
+-AI?
 
 ## Where to find it
 
