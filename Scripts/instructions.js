@@ -52,10 +52,12 @@ function instructions() {
 
     ready.onclick = function() {
         $('#instructionsScreen').remove();
+        $(document.body).css("overflow", "hidden");
         $('#startScreen').show();
     };
 
     instructions.appendChild(ready);
+    $(document.body).css("overflow", "scroll");
 
     document.body.appendChild(instructionParent);
 }
