@@ -25,9 +25,16 @@
     font-size: 60px;
 }
 
+#logo{
+    display:block;
+    width: 50%;
+}
+
 
 .fancyButton {
-    color: rgb(255, 255, 255); font-size: 26px; line-height: 26px; padding: 6px; border-radius: 10px; font-family: "Courier New", Courier, monospace; font-weight: 700; text-decoration: none solid rgb(68, 68, 68); font-style: normal; font-variant: normal; text-transform: none; background-image: radial-gradient(at center center, rgb(117, 0, 0) 0%, rgb(203, 70, 82) 50%, rgb(117, 59, 60) 100%); box-shadow: rgba(0, 0, 0, 0.56) 8px 8px 15px 4px; border: 2px solid rgb(0, 0, 0); display: inline-block;}
+    color: rgb(255, 255, 255); font-size: 26px; line-height: 26px; padding: 6px; border-radius: 10px; font-family: 'Titillium Web', sans-serif; font-weight: 700; text-decoration: none solid rgb(68, 68, 68); font-style: normal; font-variant: normal; text-transform: none; background-image: radial-gradient(at center center, rgb(117, 0, 0) 0%, rgb(203, 70, 82) 50%, rgb(117, 59, 60) 100%); box-shadow: rgba(0, 0, 0, 0.56) 8px 8px 15px 4px; border: 2px solid rgb(0, 0, 0); display: inline-block;
+    margin-bottom: 10px;
+}
 .fancyButton:hover {
 background: #750000; }
 .fancyButton:active {
