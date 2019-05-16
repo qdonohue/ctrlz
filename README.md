@@ -1,7 +1,9 @@
 # ctrlz
 Game developed for COS 426 class. 
 
-Starting point for THREE.js work is from: http://buildnewgames.com/webgl-threejs/ and https://aerotwist.com/tutorials/getting-started-with-three-js/ 
+Starting point for THREE.js work is from: 
+http://buildnewgames.com/webgl-threejs/
+https://aerotwist.com/tutorials/getting-started-with-three-js/ 
 
 Priorities:
 
@@ -12,3 +14,25 @@ Priorities:
 -Develop shooting mechanics
 -Building mechanics
 -AI?
+
+# Ctrlz
+
+Game developed for COS 426 class.
+
+## Where to find it
+
+The final game is hosted here:
+https://qdonohue.github.io/ctrlz/
+
+## Built With
+
+* [Three.js]
+* [jQuery]
+* [HTML]
+* [CSS]
+
+## Authors
+
+* **Quinn Donohue**
+* **Cody Sedillo**
+* **Victor Riveros** 
